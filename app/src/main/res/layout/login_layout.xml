@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Toolbar
+        android:id="@+id/login_layout_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/login_layout_tool_bar_title">
+    </Toolbar>
+
+    <EditText
+        android:id="@+id/login_layout_edit_text_user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/login_layout_edit_text_user_id"
+        android:autofillHints="phone"
+        android:maxLength="10">
+    </EditText>
+
+    <EditText
+        android:id="@+id/login_layout_edit_text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/login_layout_edit_text_password"
+        android:autofillHints="password"
+        android:maxLength="16">
+    </EditText>
+
+    <Button
+        android:id="@+id/login_layout_button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_layout_button_login_text">
+    </Button>
+
+</LinearLayout>
