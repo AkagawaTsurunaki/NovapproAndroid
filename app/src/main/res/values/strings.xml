@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NovapproAndroid</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login_layout_tool_bar_title">欢迎使用Novappro</string>
+    <string name="login_layout_edit_text_user_id">请输入您的学号/工号</string>
+    <string name="login_layout_edit_text_password">请输入您的密码</string>
+    <string name="login_layout_button_login_text">登录</string>
 </resources>
