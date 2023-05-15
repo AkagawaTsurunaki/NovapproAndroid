@@ -1,6 +1,5 @@
 package com.github.akagawatsurunaki.android.novapproandroid.util
 
-import androidx.annotation.NonNull
 import com.github.akagawatsurunaki.android.novapproandroid.config.Config
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -9,6 +8,9 @@ import okhttp3.Response
 
 object ConnUtil {
 
+    /**
+     * 传入Servlet的访问路径，以及post请求的参数map
+     */
     fun sendPostRequest(servletValue: String, kvMap: Map<String, String>): Response? {
         var response: Response? = null
         try {
