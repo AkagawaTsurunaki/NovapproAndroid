@@ -1,5 +1,7 @@
 package com.github.akagawatsurunaki.android.novapproandroid.util
 
+import android.util.Log
+import com.alibaba.fastjson2.JSON
 import com.github.akagawatsurunaki.android.novapproandroid.config.Config
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -14,21 +16,22 @@ object ConnUtil {
     fun sendPostRequest(servletValue: String, kvMap: Map<String, String>): Response? {
         var response: Response? = null
         try {
-            Thread {
-                val url = Config.prefix + servletValue
 
-                val requestBody = FormBody.Builder().apply {
-                    kvMap.forEach { entry -> add(entry.key, entry.value) }
-                }.build()
+            val url = Config.prefix + servletValue
 
-                val request = Request.Builder()
-                    .url(url)
-                    .post(requestBody)
-                    .build()
+            val requestBody = FormBody.Builder().apply {
+                kvMap.forEach { entry -> add(entry.key, entry.value) }
+            }.build()
 
-                val client = OkHttpClient()
-                response = client.newCall(request).execute()
-            }.start()
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build()
+
+            val client = OkHttpClient()
+            response = client.newCall(request).execute()
+
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
