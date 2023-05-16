@@ -1,54 +1,43 @@
 package com.github.akagawatsurunaki.android.novapproandroid.service
 
+import android.app.Service
 import android.content.Intent
 import android.util.Log
 import androidx.annotation.Nullable
 import androidx.compose.runtime.Immutable
 import com.alibaba.fastjson2.JSON
+import com.alibaba.fastjson2.JSONObject
+import com.alibaba.fastjson2.TypeReference
 import com.github.akagawatsurunaki.android.novapproandroid.config.Config
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
+import com.github.akagawatsurunaki.android.novapproandroid.util.ConnUtil
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
 object LoginService {
-    fun login(userId: String, rawPassword: String): Pair<ServiceMessage, User?>? {
-        var result : Pair<ServiceMessage, User?>? = null
-
+    fun login(userId: String, rawPassword: String): Pair<ServiceMessage, User?> {
+        var result: Pair<ServiceMessage, User?>? = null
         Thread {
-            val url = Config.prefix + "/android/login"
+            val response = ConnUtil.sendPostRequest(
+                servletValue = "/android/login",
+                mapOf("userId" to userId, "rawPassword" to rawPassword)
+            )
 
-            val requestBody = FormBody.Builder()
-                .add("userId", userId)
-                .add("rawPassword", rawPassword)
-                .build()
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build()
+            val jsonString = response?.body?.string()
 
-            val client = OkHttpClient()
-            val response = client.newCall(request).execute()
+            if (jsonString != null) {
+                val pairType = object : TypeReference<Pair<ServiceMessage, User>>() {}
+                result = JSONObject.parseObject(jsonString, pairType)
+            } else {
+                Log.e("Response Error", "Response body is empty!")
+            }
 
-            val responseData = response.body?.string()
-
-            // TODO(这里会有错误发生，因为类型不匹配)
-
-
-        }
-        return null
-    }
-
-    fun c() {
-        Thread {
-            val url = Config.prefix + "/android/login"
-            val client = OkHttpClient()
-            val request = Request.Builder().url(url)
-                .build()
-            val response = client.newCall(request = request).execute()
-            val responseStr = response.body?.string()
-            Log.d("response", responseStr!!)
         }.start()
+        return result?: Pair(
+            ServiceMessage(ServiceMessage.Level.FATAL, "未知错误导致的服务失败"),
+            null)
     }
+
 }
