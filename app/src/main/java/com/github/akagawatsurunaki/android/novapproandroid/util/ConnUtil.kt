@@ -38,4 +38,23 @@ object ConnUtil {
         return response
     }
 
+    fun sendGetRequest(servletValue: String): Response? {
+        var response: Response? = null
+        try {
+
+            val url = Config.prefix + servletValue
+
+            val request = Request.Builder()
+                .url(url)
+                .build()
+
+            val client = OkHttpClient()
+            response = client.newCall(request).execute()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return response
+    }
+
 }
