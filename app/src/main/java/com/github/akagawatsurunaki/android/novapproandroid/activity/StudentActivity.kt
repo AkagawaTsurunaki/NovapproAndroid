@@ -1,6 +1,5 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.ApplyCourseActivity
-import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.CheckCourseApplicationActivity
+import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.CheckCourseApplicationsActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.StudentLayoutBinding
 
 class StudentActivity : ComponentActivity() {
@@ -39,7 +38,7 @@ class StudentActivity : ComponentActivity() {
     }
 
     private fun toCheckCourseApplicationActivity() {
-        val intent = Intent(this, CheckCourseApplicationActivity::class.java)
+        val intent = Intent(this, CheckCourseApplicationsActivity::class.java)
         startActivity(intent)
     }
 }
