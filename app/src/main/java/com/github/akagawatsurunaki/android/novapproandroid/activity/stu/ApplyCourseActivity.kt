@@ -23,7 +23,7 @@ import java.io.File
 
 class ApplyCourseActivity : ComponentActivity() {
     private val takePhoto = 1
-    lateinit var imageUri: Uri
+    private lateinit var imageUri: Uri
     lateinit var outputImage: File
     private val binding = ApplyCourseLayoutBinding.inflate(layoutInflater)
 
