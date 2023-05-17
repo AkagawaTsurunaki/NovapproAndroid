@@ -6,10 +6,12 @@ import com.github.akagawatsurunaki.android.novapproandroid.util.ResponseUtil
 
 object CourseService {
     fun getCoursesCanBeApplied(): Pair<ServiceMessage, List<Course>?> {
-        return ResponseUtil.getServiceResult<List<Course>>(servletValue = "/android/getCoursesCanBeApplied")
+        return ResponseUtil.getServiceResult<List<Course>>(
+            servletValue = "/android/courseService/getCoursesCanBeApplied")
     }
 
     fun getAllCourses(): Pair<ServiceMessage, List<Course>?> {
-        return ResponseUtil.getServiceResult<List<Course>>(servletValue = "/android/getAllCourses")
+        return ResponseUtil.getServiceResult<List<Course>>(
+            servletValue = "/android/courseService/getAllCourses")
     }
 }

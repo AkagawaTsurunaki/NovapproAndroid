@@ -28,6 +28,18 @@ object ResponseUtil {
         return result
     }
 
+    fun getServiceMessage(
+        servletValue: String,
+        params: Map<String, String>
+    ): ServiceMessage {
+        var result: ServiceMessage = defaultServiceMessage
+        Thread {
+            val response = ConnUtil.sendPostRequest(servletValue, params)
+            result = parseServiceMessage(response)
+        }.start()
+        return result
+    }
+
     fun <Model> getServiceResult(
         servletValue: String,
         params: Map<String, String>,
