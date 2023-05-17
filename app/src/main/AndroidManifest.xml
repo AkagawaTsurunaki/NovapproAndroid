@@ -17,6 +17,11 @@
         android:theme="@style/Theme.NovapproAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activity.teacher.CheckApprovalDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_check_approval_detail"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
             android:name=".activity.stu.CourseApplicationDetailActivity"
             android:exported="false"
             android:label="@string/title_activity_course_application_detail"

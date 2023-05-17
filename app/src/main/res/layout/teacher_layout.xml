@@ -7,11 +7,12 @@
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="您的审批">
+        android:title="@string/your_approvals">
 
     </Toolbar>
 
     <TableLayout
+        android:id="@+id/table_layout_approval_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

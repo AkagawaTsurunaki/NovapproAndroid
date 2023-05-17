@@ -20,4 +20,6 @@
     <string name="teachers">教师组姓名</string>
     <string name="online_contact_way">线上联系方式</string>
     <string name="comment">备注</string>
+    <string name="your_approvals">您的审批</string>
+    <string name="title_activity_check_approval_detail">CheckApprovalDetailActivity</string>
 </resources>

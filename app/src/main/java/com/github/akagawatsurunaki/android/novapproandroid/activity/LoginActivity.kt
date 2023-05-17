@@ -8,6 +8,7 @@ import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.LoginLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.LoginService
 
 
@@ -25,41 +26,29 @@ class LoginActivity : ComponentActivity() {
             val userId = binding.loginLayoutEditTextUserId.text.toString()
             val password = binding.loginLayoutEditTextPassword.text.toString()
             // 登录
-            val serviceMessageUserPair = LoginService.login(userId, password)
+            val loginServiceResult = LoginService.login(userId, password)
             // 获取User对象
-            val loginUser = serviceMessageUserPair.second
-            if (serviceMessageUserPair.first.level == ServiceMessage.Level.SUCCESS) {
-                // 登录成功的情况下，用户对象和其用户类型均不可能为null
-                assert(loginUser?.type != null)
+            val loginUser = loginServiceResult.second
+            if (loginServiceResult.first.level == ServiceMessage.Level.SUCCESS) {
                 // 转到对应的界面
-                toActivity(loginUser!!.type!!)
+                toActivity(loginUser!!)
             } else {
-                Toast.makeText(this, serviceMessageUserPair.first.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, loginServiceResult.first.message, Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun toActivity(userType: UserType) {
-        when (userType) {
+    private fun toActivity(user: User) {
+        val intent: Intent = when (user.type!!) {
             UserType.ADMIN -> toAdminActivity()
             UserType.LECTURE_TEACHER -> toTeacherActivity()
             UserType.SUPERVISOR_TEACHER -> toTeacherActivity()
             UserType.STUDENT -> toStudentActivity()
-        }
-    }
-
-    private fun toTeacherActivity() {
-        val intent = Intent(this, TeacherActivity::class.java)
+        }.apply { putExtra("loginUserId", user.id) }
         startActivity(intent)
     }
 
-    private fun toAdminActivity() {
-        val intent = Intent(this, AdminActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun toStudentActivity() {
-        val intent = Intent(this, StudentActivity::class.java)
-        startActivity(intent)
-    }
+    private fun toTeacherActivity() = Intent(this, TeacherActivity::class.java)
+    private fun toAdminActivity() = Intent(this, AdminActivity::class.java)
+    private fun toStudentActivity() = Intent(this, StudentActivity::class.java)
 }
