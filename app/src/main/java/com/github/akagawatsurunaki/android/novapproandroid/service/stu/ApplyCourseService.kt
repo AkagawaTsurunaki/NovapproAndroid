@@ -8,7 +8,7 @@ import java.io.File
 
 object ApplyCourseService {
 
-    fun apply(courseId: String, remark: String, file: File): ServiceMessage {
+    fun createCourseApplication(courseId: String, remark: String, file: File): ServiceMessage {
         // TODO(to test here, idk there is an error or not)
         return ResponseUtil.getServiceMessage(
             servletValue = "/android/applyCourseService/createCourseApplication",
