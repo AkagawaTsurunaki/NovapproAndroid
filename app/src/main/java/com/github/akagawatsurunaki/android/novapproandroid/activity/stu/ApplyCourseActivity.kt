@@ -25,7 +25,6 @@ class ApplyCourseActivity : ComponentActivity() {
     private val takePhoto = 1
     lateinit var imageUri: Uri
     lateinit var outputImage: File
-   // private lateinit var selectedCourseId: String
     private val binding = ApplyCourseLayoutBinding.inflate(layoutInflater)
 
     @SuppressLint("SetTextI18n")
@@ -88,7 +87,11 @@ class ApplyCourseActivity : ComponentActivity() {
             )
             if (serviceMessage.level != ServiceMessage.Level.SUCCESS) {
                 Toast.makeText(this, serviceMessage.message, Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "成功申请了一个课程", Toast.LENGTH_LONG).show()
             }
+            // 完成申请后，返回至上一个页面
+            finish()
         }
 
     }
