@@ -11,4 +11,6 @@
     <string name="student_layout_tool_bar_title">学生端</string>
     <string name="title_activity_apply_course">ApplyCourseActivity</string>
     <string name="title_activity_check_course_application">CheckCourseApplicationActivity</string>
+    <string name="apply_course_layout_button_take_photo">Take Photo</string>
+    <string name="create_course_application">提交课程申请</string>
 </resources>
