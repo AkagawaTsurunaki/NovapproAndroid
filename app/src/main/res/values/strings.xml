@@ -30,4 +30,5 @@
     <string name="user_username">姓名</string>
     <string name="user_user_type">用户类型</string>
     <string name="title_activity_modify_user">ModifyUserActivity</string>
+    <string name="title_activity_add_user">AddUserActivity</string>
 </resources>
