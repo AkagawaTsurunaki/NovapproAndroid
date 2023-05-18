@@ -22,7 +22,7 @@
             android:label="@string/title_activity_approval_flow_query"
             android:theme="@style/Theme.NovapproAndroid" />
         <activity
-            android:name=".activity.admin.UserManagementActivity"
+            android:name=".activity.admin.user.UserManagementActivity"
             android:exported="false"
             android:label="@string/title_activity_user_management"
             android:theme="@style/Theme.NovapproAndroid" />

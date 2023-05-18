@@ -24,6 +24,14 @@ object UserManageService {
         )
     }
 
+    fun updateUser(user: User): Pair<ServiceMessage, User?> {
+        return ResponseUtil.getServiceResult<User>(
+            servletValue = "/android/userManageService/updateUser",
+            // TODO(极容易引发错误)
+            mapOf("user" to JSONObject.toJSONString(user))
+        )
+    }
+
     fun deleteUser(userId: String): Pair<ServiceMessage, User?> {
         // TODO(to test here, idk there is an error or not)
         return ResponseUtil.getServiceResult<User>(
