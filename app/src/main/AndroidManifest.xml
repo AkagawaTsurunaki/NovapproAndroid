@@ -17,6 +17,11 @@
         android:theme="@style/Theme.NovapproAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activity.admin.user.ModifyUserActivity"
+            android:exported="false"
+            android:label="@string/title_activity_modify_user"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
             android:name=".activity.admin.ApprovalFlowQueryActivity"
             android:exported="false"
             android:label="@string/title_activity_approval_flow_query"

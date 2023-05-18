@@ -48,4 +48,11 @@ object UserManageService {
         )
     }
 
+    fun resetUserPassword(userId: String): Pair<ServiceMessage, User?> {
+        return ResponseUtil.getServiceResult<User>(
+            servletValue = "/android/userManageService/resetUserPassword",
+            mapOf("userId" to userId)
+        )
+    }
+
 }
