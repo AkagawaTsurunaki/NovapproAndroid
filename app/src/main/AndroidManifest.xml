@@ -17,6 +17,26 @@
         android:theme="@style/Theme.NovapproAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activity.admin.ApprovalFlowQueryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_approval_flow_query"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
+            android:name=".activity.admin.UserManagementActivity"
+            android:exported="false"
+            android:label="@string/title_activity_user_management"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
+            android:name=".activity.admin.CourseManagementActivity"
+            android:exported="false"
+            android:label="@string/title_activity_course_management"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
+            android:name=".activity.admin.SystemUserManagementActivity"
+            android:exported="false"
+            android:label="@string/title_activity_system_user_management"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
             android:name=".activity.teacher.CheckApprovalDetailActivity"
             android:exported="false"
             android:label="@string/title_activity_check_approval_detail"
