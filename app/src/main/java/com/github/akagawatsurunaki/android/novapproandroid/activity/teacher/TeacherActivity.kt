@@ -1,4 +1,4 @@
-package com.github.akagawatsurunaki.android.novapproandroid.activity
+package com.github.akagawatsurunaki.android.novapproandroid.activity.teacher
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,21 +6,10 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.github.akagawatsurunaki.android.novapproandroid.R
-import com.github.akagawatsurunaki.android.novapproandroid.activity.teacher.CheckApprovalDetailActivity
-import com.github.akagawatsurunaki.android.novapproandroid.activity.ui.theme.NovapproAndroidTheme
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.TeacherLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
-import java.util.LinkedList
 
 class TeacherActivity : ComponentActivity() {
 
