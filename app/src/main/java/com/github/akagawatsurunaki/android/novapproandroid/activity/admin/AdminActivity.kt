@@ -1,4 +1,4 @@
-package com.github.akagawatsurunaki.android.novapproandroid.activity
+package com.github.akagawatsurunaki.android.novapproandroid.activity.admin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
