@@ -5,18 +5,8 @@ import android.os.Bundle
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.alibaba.fastjson2.JSONObject
 import com.github.akagawatsurunaki.android.novapproandroid.R
-import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user.ui.theme.NovapproAndroidTheme
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModifyUserLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
@@ -31,6 +21,7 @@ class ModifyUserActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modify_user_layout)
+        binding  = ModifyUserLayoutBinding.inflate(layoutInflater)
 
         val user =
             JSONObject.parseObject(intent.getStringExtra("selectedUser"), User::class.java)
@@ -40,8 +31,6 @@ class ModifyUserActivity : ComponentActivity() {
             finish()
             return
         }
-
-        binding  = ModifyUserLayoutBinding.inflate(layoutInflater)
 
         enumValues<UserType>().forEach {
             binding.radioGroupUserType.addView(
@@ -79,7 +68,7 @@ class ModifyUserActivity : ComponentActivity() {
             }
         }
 
-        // 弹出警告框
+        // 删除用户按钮事件绑定, 弹出警告框
         binding.buttonConfirmDeleteUser.setOnClickListener {
             AlertDialog.Builder(this).apply {
                 title = "危险操作"

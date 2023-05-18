@@ -1,46 +1,77 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.course
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.ui.theme.NovapproAndroidTheme
+import com.alibaba.fastjson2.JSONObject
+import com.github.akagawatsurunaki.android.novapproandroid.R
+import com.github.akagawatsurunaki.android.novapproandroid.databinding.CourseManagementLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.model.Course
+import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 class CourseManagementActivity : ComponentActivity() {
+    private lateinit var binding: CourseManagementLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            NovapproAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting3("Android")
+        setContentView(R.layout.course_management_layout)
+        binding = CourseManagementLayoutBinding.inflate(layoutInflater)
+
+        val getAllCoursesServiceResult = CourseService.getAllCourses()
+
+        ServiceResultUtil.show(this, getAllCoursesServiceResult.first)
+
+        val allCourses = getAllCoursesServiceResult.second ?: emptyList()
+
+        allCourses.forEach {
+            binding.tableLayoutAllCourses.addView(
+                TableRow(this).apply {
+                    addView(
+                        TextView(this@CourseManagementActivity).apply {
+                            text = it.code
+                        }
+                    )
+                    addView(
+                        TextView(this@CourseManagementActivity).apply {
+                            text = it.name
+                        }
+                    )
+                    addView(
+                        TextView(this@CourseManagementActivity).apply {
+                            text = it.serialNumber
+                        }
+                    )
+                    addView(
+                        TextView(this@CourseManagementActivity).apply {
+                            text = it.teachers
+                        }
+                    )
+                    addView(
+                        TextView(this@CourseManagementActivity).apply {
+                            text = it.onlineContactWay
+                        }
+                    )
+                    addView(
+                        TextView(this@CourseManagementActivity).apply {
+                            text = it.comment
+                        }
+                    )
+                    setOnClickListener {_ ->
+                        toModifyCourseActivity(it)
+                    }
                 }
-            }
+            )
         }
+
+
+    }
+
+    private fun toModifyCourseActivity(course: Course) {
+        startActivity(Intent(this, ModifyCourseActivity::class.java).apply {
+            putExtra("selectedCourse", JSONObject.toJSONString(course))
+        })
     }
 }
 
-@Composable
-fun Greeting3(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview3() {
-    NovapproAndroidTheme {
-        Greeting3("Android")
-    }
-}

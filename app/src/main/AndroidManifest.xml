@@ -17,6 +17,11 @@
         android:theme="@style/Theme.NovapproAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activity.admin.course.ModifyCourseActivity"
+            android:exported="false"
+            android:label="@string/title_activity_modify_course"
+            android:theme="@style/Theme.NovapproAndroid" />
+        <activity
             android:name=".activity.admin.user.AddUserActivity"
             android:exported="false"
             android:label="@string/title_activity_add_user"

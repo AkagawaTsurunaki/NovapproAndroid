@@ -1,4 +1,4 @@
-package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user.ui.theme
+package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.course.ui.theme
 
 import android.app.Activity
 import android.os.Build
