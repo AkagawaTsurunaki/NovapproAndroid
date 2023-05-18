@@ -41,7 +41,7 @@ object ApprovalService {
         )
     }
 
-    fun saveApprovalResultServlet(
+    fun saveApprovalResult(
         flowNo: String,
         remark: String,
         confirm: String

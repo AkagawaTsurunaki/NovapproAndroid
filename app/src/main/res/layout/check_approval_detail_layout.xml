@@ -136,6 +136,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/edit_text_approval_remark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="若同意审批，可以不填写此栏；如果驳回审批，必须输入驳回理由。">
@@ -145,6 +146,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/button_approval_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="同意审批"
@@ -152,6 +154,7 @@
 
         </Button>
         <Button
+            android:id="@+id/button_approval_refuse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="拒绝审批"
