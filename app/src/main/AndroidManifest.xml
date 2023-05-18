@@ -37,7 +37,7 @@
             android:label="@string/title_activity_user_management"
             android:theme="@style/Theme.NovapproAndroid" />
         <activity
-            android:name=".activity.admin.CourseManagementActivity"
+            android:name=".activity.admin.course.CourseManagementActivity"
             android:exported="false"
             android:label="@string/title_activity_course_management"
             android:theme="@style/Theme.NovapproAndroid" />

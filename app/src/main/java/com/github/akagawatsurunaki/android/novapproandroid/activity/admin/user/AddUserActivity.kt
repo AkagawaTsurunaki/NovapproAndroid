@@ -54,5 +54,4 @@ class AddUserActivity : ComponentActivity() {
         ServiceResultUtil.show(this, addUser.first)
     }
 
-
 }
