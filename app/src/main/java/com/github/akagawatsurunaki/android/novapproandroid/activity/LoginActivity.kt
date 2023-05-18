@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
+import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.StudentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.teacher.TeacherActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.LoginLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType

@@ -47,7 +47,7 @@
             android:label="@string/title_activity_admin"
             android:theme="@style/Theme.NovapproAndroid" />
         <activity
-            android:name=".activity.StudentActivity"
+            android:name=".activity.stu.StudentActivity"
             android:exported="false"
             android:label="@string/title_activity_student"
             android:theme="@style/Theme.NovapproAndroid" />

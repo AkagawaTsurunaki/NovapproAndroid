@@ -1,4 +1,4 @@
-package com.github.akagawatsurunaki.android.novapproandroid.activity
+package com.github.akagawatsurunaki.android.novapproandroid.activity.stu
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
-import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.ApplyCourseActivity
-import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.CheckCourseApplicationsActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.StudentLayoutBinding
 
 class StudentActivity : ComponentActivity() {
