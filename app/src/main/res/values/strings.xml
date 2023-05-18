@@ -33,4 +33,5 @@
     <string name="title_activity_add_user">AddUserActivity</string>
     <string name="title_activity_modify_course">ModifyCourseActivity</string>
     <string name="course_credit">学分</string>
+    <string name="title_activity_add_course">AddCourseActivity</string>
 </resources>
