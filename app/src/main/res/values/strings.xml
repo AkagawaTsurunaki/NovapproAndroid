@@ -26,4 +26,7 @@
     <string name="title_activity_course_management">CourseManagementActivity</string>
     <string name="title_activity_user_management">UserManagementActivity</string>
     <string name="title_activity_approval_flow_query">ApprovalFlowQueryActivity</string>
+    <string name="user_id">学号/工号</string>
+    <string name="user_username">姓名</string>
+    <string name="user_user_type">用户类型</string>
 </resources>
