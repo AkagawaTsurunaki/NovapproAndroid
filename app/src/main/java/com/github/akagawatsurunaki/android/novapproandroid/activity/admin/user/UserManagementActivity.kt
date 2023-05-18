@@ -20,7 +20,13 @@ class UserManagementActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_management_layout)
         binding = UserManagementLayoutBinding.inflate(layoutInflater)
+        initTableLayout()
+        binding.textViewAddUser.setOnClickListener {
+            toAddUserMsgBox()
+        }
+    }
 
+    private fun initTableLayout() {
         val getAllUsersServiceResult = UserManageService.getAllUsers()
 
         if (getAllUsersServiceResult.first.level != ServiceMessage.Level.SUCCESS) {
@@ -28,6 +34,10 @@ class UserManagementActivity : ComponentActivity() {
         }
 
         val allUsers = getAllUsersServiceResult.second ?: emptyList()
+
+        // 先移除所有的View组件
+        binding.tableLayoutAllUsers.removeAllViewsInLayout()
+
         allUsers.forEach {
             binding.tableLayoutAllUsers.addView(
                 TableRow(this).apply {
@@ -49,28 +59,21 @@ class UserManagementActivity : ComponentActivity() {
                 }
             )
         }
-
-        binding.textViewAddUser.setOnClickListener {
-            toAddUserMsgBox()
-        }
-
     }
 
     private fun toAddUserMsgBox() {
         TODO("Not yet implemented")
     }
 
-
     override fun onRestart() {
         super.onRestart()
-        // TODO: 回调更新页面
+        initTableLayout()
     }
 
-    // 弹出消息框，可以直接修改，也可以直接点击删除，
+    // 弹出消息框，可以直接修改，也可以直接点击删除
     private fun toModifyUserActivity(selectedUser: User) {
-        startActivityForResult(Intent(this, ModifyUserActivity::class.java).apply {
+        startActivity(Intent(this, ModifyUserActivity::class.java).apply {
             putExtra("selectedUser", JSONObject.toJSONString(selectedUser))
-        }, 1)
-
+        })
     }
 }
