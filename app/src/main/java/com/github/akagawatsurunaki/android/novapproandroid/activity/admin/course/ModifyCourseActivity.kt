@@ -7,10 +7,8 @@ import androidx.activity.ComponentActivity
 import com.alibaba.fastjson2.JSONObject
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModifyCourseLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModifyUserLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Course
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
-import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserManageService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 import java.math.BigDecimal

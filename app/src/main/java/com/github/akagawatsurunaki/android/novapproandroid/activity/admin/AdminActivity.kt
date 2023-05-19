@@ -8,7 +8,6 @@ import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.approvalflow.ApprovalFlowQueryActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.course.CourseManagementActivity
-import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user.SystemUserManagementActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user.UserManagementActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.StudentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.AdminLayoutBinding
@@ -46,7 +45,7 @@ class AdminActivity : ComponentActivity() {
     }
 
     private fun toSystemUserManagementActivity() {
-        startActivity(Intent(this, SystemUserManagementActivity::class.java))
+        startActivity(Intent(this, UserManagementActivity::class.java))
     }
 
     private fun toCourseManagementActivity() {
