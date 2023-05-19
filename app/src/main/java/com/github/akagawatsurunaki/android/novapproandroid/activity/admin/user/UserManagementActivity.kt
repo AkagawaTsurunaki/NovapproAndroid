@@ -22,7 +22,7 @@ class UserManagementActivity : ComponentActivity() {
         binding = UserManagementLayoutBinding.inflate(layoutInflater)
         initTableLayout()
         binding.textViewAddUser.setOnClickListener {
-            toAddUserMsgBox()
+            toAddUserActivity()
         }
     }
 
@@ -61,7 +61,7 @@ class UserManagementActivity : ComponentActivity() {
         }
     }
 
-    private fun toAddUserMsgBox() {
+    private fun toAddUserActivity() {
         startActivity(Intent(this, AddUserActivity::class.java))
     }
 
