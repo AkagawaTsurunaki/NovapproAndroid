@@ -42,7 +42,6 @@ class LoginActivity : ComponentActivity() {
                     // 转到对应的界面
                     toActivity(loginUser!!)
                 }
-
             }
     }
 
@@ -55,7 +54,6 @@ class LoginActivity : ComponentActivity() {
         }.apply { putExtra("loginUserId", user.id) }
         startActivity(intent)
     }
-
     private fun toTeacherActivity() = Intent(this, TeacherActivity::class.java)
     private fun toAdminActivity() = Intent(this, AdminActivity::class.java)
     private fun toStudentActivity() = Intent(this, StudentActivity::class.java)
