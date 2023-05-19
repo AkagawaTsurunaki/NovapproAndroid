@@ -1,46 +1,69 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.approvalflow
 
 import android.os.Bundle
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.ui.theme.NovapproAndroidTheme
+import com.github.akagawatsurunaki.android.novapproandroid.R
+import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApprovalFlowQueryLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
+
 
 class ApprovalFlowQueryActivity : ComponentActivity() {
+
+    private lateinit var binding: ApprovalFlowQueryLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            NovapproAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting5("Android")
-                }
+        setContentView(R.layout.approval_flow_query_layout)
+        binding = ApprovalFlowQueryLayoutBinding.inflate(layoutInflater)
+
+        val getAllApprovalFlowsServiceResult = ApprovalService.getAllApprovalFlows()
+        if (ServiceResultUtil.isSuccess(this, getAllApprovalFlowsServiceResult.first)) {
+            val allApprovalFlows = getAllApprovalFlowsServiceResult.second ?: emptyList()
+            allApprovalFlows.forEach {
+                binding.tableLayoutAllApprovalFlows.addView(
+                    TableRow(this).apply {
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.flowNo
+                            }
+                        )
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.approStatus!!.chinese
+                            }
+                        )
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.title
+                            }
+                        )
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.busType!!.chinese
+                            }
+                        )
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.addUserId.toString()
+                            }
+                        )
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.addTime.toString()
+                            }
+                        )
+                        addView(
+                            TextView(this@ApprovalFlowQueryActivity).apply {
+                                text = it.remark
+                            }
+                        )
+                    }
+                )
             }
         }
-    }
-}
 
-@Composable
-fun Greeting5(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview5() {
-    NovapproAndroidTheme {
-        Greeting5("Android")
     }
 }

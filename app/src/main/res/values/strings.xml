@@ -34,4 +34,11 @@
     <string name="title_activity_modify_course">ModifyCourseActivity</string>
     <string name="course_credit">学分</string>
     <string name="title_activity_add_course">AddCourseActivity</string>
+    <string name="approval_flow_flow_no">流水号</string>
+    <string name="approval_flow_appro_status">当前审批状态</string>
+    <string name="approval_flow_title">标题</string>
+    <string name="approval_flow_bus_type">审批流拓扑结构</string>
+    <string name="approval_flow_add_time">申请发起时间</string>
+    <string name="approval_flow_add_user_id">申请人ID</string>
+    <string name="approval_flow_add_remark">申请原因</string>
 </resources>
