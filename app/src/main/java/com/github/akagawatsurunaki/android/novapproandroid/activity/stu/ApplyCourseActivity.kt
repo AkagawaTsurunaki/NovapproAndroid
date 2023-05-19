@@ -16,6 +16,7 @@ import androidx.activity.ComponentActivity
 import androidx.core.content.FileProvider
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApplyCourseLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.databinding.CheckCourseApplicationsLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
@@ -25,12 +26,15 @@ class ApplyCourseActivity : ComponentActivity() {
     private val takePhoto = 1
     private lateinit var imageUri: Uri
     lateinit var outputImage: File
-    private val binding = ApplyCourseLayoutBinding.inflate(layoutInflater)
+    private lateinit var binding : ApplyCourseLayoutBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.apply_course_layout)
+        // 初始化绑定对象
+        binding = ApplyCourseLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val coursesCanBeAppliedServiceMessage = CourseService.getCoursesCanBeApplied()
 

@@ -16,12 +16,14 @@ import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUti
 
 class ModifyUserActivity : ComponentActivity() {
 
-    private lateinit var binding:ModifyUserLayoutBinding
+    private lateinit var binding: ModifyUserLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.modify_user_layout)
-        binding  = ModifyUserLayoutBinding.inflate(layoutInflater)
+        // 初始化绑定对象
+        binding = ModifyUserLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val user =
             JSONObject.parseObject(intent.getStringExtra("selectedUser"), User::class.java)
@@ -93,7 +95,8 @@ class ModifyUserActivity : ComponentActivity() {
         val username = binding.textViewUserUsername.text.toString()
         val userType = enumValues<UserType>()[binding.radioGroupUserType.checkedRadioButtonId]
 
-        val updateUserServiceResult = UserManageService.updateUser(User(userId, username, null, userType))
+        val updateUserServiceResult =
+            UserManageService.updateUser(User(userId, username, null, userType))
 
         if (updateUserServiceResult.first.level != ServiceMessage.Level.SUCCESS) {
             Toast.makeText(this, updateUserServiceResult.first.message, Toast.LENGTH_LONG).show()

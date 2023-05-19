@@ -17,8 +17,10 @@ class TeacherActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.teacher_layout)
+        // 初始化绑定对象
         binding = TeacherLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val loginUserId = intent.getStringExtra("loginUserId")
 

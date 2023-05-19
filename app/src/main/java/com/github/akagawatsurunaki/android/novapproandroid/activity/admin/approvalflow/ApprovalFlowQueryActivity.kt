@@ -16,8 +16,10 @@ class ApprovalFlowQueryActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.approval_flow_query_layout)
+        // 初始化绑定对象
         binding = ApprovalFlowQueryLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val getAllApprovalFlowsServiceResult = ApprovalService.getAllApprovalFlows()
         if (ServiceResultUtil.isSuccess(this, getAllApprovalFlowsServiceResult.first)) {

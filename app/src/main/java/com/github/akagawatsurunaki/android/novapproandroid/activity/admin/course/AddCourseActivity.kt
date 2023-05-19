@@ -16,8 +16,10 @@ class AddCourseActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_course_layout)
+        // 初始化绑定对象
         binding = AddCourseLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         binding.buttonConfirmAddCourse.setOnClickListener {
             addCourse()

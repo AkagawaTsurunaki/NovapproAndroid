@@ -15,11 +15,13 @@ import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserMa
 
 class UserManagementActivity : ComponentActivity() {
 
-    private lateinit var binding:UserManagementLayoutBinding
+    private lateinit var binding: UserManagementLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.user_management_layout)
+        // 初始化绑定对象
         binding = UserManagementLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
         initTableLayout()
         binding.textViewAddUser.setOnClickListener {
             toAddUserActivity()

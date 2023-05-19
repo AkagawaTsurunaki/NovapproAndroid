@@ -16,9 +16,10 @@ class AddUserActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_user_layout)
-
+        // 初始化绑定对象
         binding = AddUserLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         enumValues<UserType>().forEach {
             binding.radioGroupUserType.addView(

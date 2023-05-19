@@ -24,8 +24,9 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 先初始化绑定对象, 再设置布局
+        // 初始化绑定对象
         binding = LoginLayoutBinding.inflate(layoutInflater)
+        // 设置布局
         setContentView(binding.root)
 
         // 为按钮绑定事件

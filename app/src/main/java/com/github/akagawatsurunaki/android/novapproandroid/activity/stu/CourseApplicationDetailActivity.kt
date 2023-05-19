@@ -16,8 +16,10 @@ class CourseApplicationDetailActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // 初始化绑定对象
         binding = CourseApplicationDetailLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val flowNo = intent.getStringExtra("flowNo")
 

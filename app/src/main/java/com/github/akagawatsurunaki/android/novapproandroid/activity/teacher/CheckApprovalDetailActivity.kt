@@ -14,7 +14,10 @@ class CheckApprovalDetailActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.check_approval_detail_layout)
+        // 初始化绑定对象
+        binding = CheckApprovalDetailLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val flowNo = intent.getStringExtra("flowNo")
         val loginUserId = intent.getStringExtra("loginUserId")

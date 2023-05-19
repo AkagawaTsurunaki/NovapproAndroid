@@ -14,6 +14,8 @@ import com.github.akagawatsurunaki.android.novapproandroid.databinding.AdminLayo
 
 class AdminActivity : ComponentActivity() {
 
+    private lateinit var binding: AdminLayoutBinding
+
     private val functionalityList =
         listOf(
             "系统用户管理",
@@ -24,8 +26,10 @@ class AdminActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.admin_layout)
-        val binding = AdminLayoutBinding.inflate(layoutInflater)
+        // 初始化绑定对象
+        binding = AdminLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, functionalityList)

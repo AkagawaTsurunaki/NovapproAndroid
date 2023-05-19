@@ -12,10 +12,14 @@ class StudentActivity : ComponentActivity() {
 
     private val functionalityList = listOf("我要申请课程", "查看我的申请")
 
+    private lateinit var binding: StudentLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.student_layout)
-        val binding = StudentLayoutBinding.inflate(layoutInflater)
+        // 初始化绑定对象
+        binding = StudentLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
 
         val adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, functionalityList)

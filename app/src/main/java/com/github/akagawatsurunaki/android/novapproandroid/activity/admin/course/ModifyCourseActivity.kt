@@ -19,8 +19,10 @@ class ModifyCourseActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.modify_user_layout)
+        // 初始化绑定对象
         binding = ModifyCourseLayoutBinding.inflate(layoutInflater)
+        // 设置布局
+        setContentView(binding.root)
         val course =
             JSONObject.parseObject(intent.getStringExtra("selectedCourse"), Course::class.java)
 

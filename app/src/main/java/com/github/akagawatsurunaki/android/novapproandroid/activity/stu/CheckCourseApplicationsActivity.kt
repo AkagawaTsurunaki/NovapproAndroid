@@ -16,11 +16,10 @@ class CheckCourseApplicationsActivity : ComponentActivity() {
     private lateinit var binding: CheckCourseApplicationsLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 设置布局
-        setContentView(R.layout.check_course_applications_layout)
-        // 绑定课程申请表格组件
+        // 初始化绑定对象
         binding = CheckCourseApplicationsLayoutBinding.inflate(layoutInflater)
-        //
+        // 设置布局
+        setContentView(binding.root)
 
         val getCourseApplicationsServiceMessage = ApplyCourseService.getCourseApplications()
 
