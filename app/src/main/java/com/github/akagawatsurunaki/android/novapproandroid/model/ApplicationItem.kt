@@ -4,15 +4,15 @@ import com.github.akagawatsurunaki.android.novapproandroid.enumeration.ApprovalS
 import java.util.Date
 
 data class ApplicationItem(
-    val flowNo: String? = null,
+    var flowNo: String? = null,
 
-    val title: String? = null,
+    var title: String? = null,
 
-    val applicantName: String? = null,
+    var applicantName: String? = null,
 
-    val approverName: String? = null,
+    var approverName: String? = null,
 
-    val addTime: Date? = null,
+    var addTime: Date? = null,
 
-    val approvalStatus: ApprovalStatus? = null
+    var approvalStatus: ApprovalStatus? = null
 ) {}

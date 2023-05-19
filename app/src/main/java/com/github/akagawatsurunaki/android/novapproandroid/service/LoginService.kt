@@ -12,31 +12,39 @@ import com.github.akagawatsurunaki.android.novapproandroid.config.Config
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.util.ConnUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.apache.commons.lang3.tuple.ImmutablePair
 
 object LoginService {
     fun login(userId: String, rawPassword: String): Pair<ServiceMessage, User?> {
         var result: Pair<ServiceMessage, User?>? = null
-        Thread {
-            val response = ConnUtil.sendPostRequest(
-                servletValue = "/android/login",
-                mapOf("userId" to userId, "rawPassword" to rawPassword)
-            )
-            val jsonString = response?.body?.string()
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                val response = ConnUtil.sendPostRequest(
+                    servletValue = "/android/login",
+                    mapOf("userId" to userId, "rawPassword" to rawPassword)
+                )
+                val jsonString = response?.body?.string()
 
-            if (jsonString != null) {
-                val pairType = object : TypeReference<Pair<ServiceMessage, User?>>() {}
-                result = JSONObject.parseObject(jsonString, pairType)
-            } else {
-                Log.e("Response Error", "Response body is empty!")
+                if (jsonString != null) {
+                    val pairType = object : TypeReference<ImmutablePair<ServiceMessage, User?>>() {}
+                    val temp = JSONObject.parseObject(jsonString, pairType)
+                    result = Pair(temp.left, temp.right)
+                    Log.i("json test", "login: ${result.toString()}")
+                } else {
+                    Log.e("Response Error", "Response body is empty!")
+                }
             }
-
-        }.start()
-        return result?: Pair(
+        }
+        return result ?: Pair(
             ServiceMessage(ServiceMessage.Level.FATAL, "未知错误导致的服务失败"),
-            null)
+            null
+        )
     }
 
 }

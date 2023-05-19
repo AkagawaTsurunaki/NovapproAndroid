@@ -8,39 +8,39 @@ data class ApprovalFlow(
     /**
      * 审批流ApprovalFlow的唯一标志号码, 又名流水号
      */
-    val flowNo: String?,
+    var flowNo: String?,
 
     /**
      * 审批流ApprovalFlow的状态
      *
      * @implNote 如果实现了LinearBus审批流程模式, 那么审批流ApprovalFlow的状态应与最后一个审批明细的状态一致
      */
-    val approStatus: ApprovalStatus?,
+    var approStatus: ApprovalStatus?,
 
     /**
      * 审批流ApprovalFlow的标题
      */
-    val title: String?,
+    var title: String?,
 
     /**
      * 审批流ApprovalFlow的总线类型
      *
      * @implNote LinearBus将审批流程组成一条直线, 即是一个线性流程图.
      */
-    val busType: BusType?,
+    var busType: BusType?,
 
     /**
      * 审批流ApprovalFlow的创建人ID
      */
-    val addUserId: Int?,
+    var addUserId: Int?,
 
     /**
      * 审批流ApprovalFlow的创建时间
      */
-    val addTime: Date?,
+    var addTime: Date?,
 
     /**
      * 申请人填写的申请原因
      */
-    val remark: String?
+    var remark: String?
 ) {}

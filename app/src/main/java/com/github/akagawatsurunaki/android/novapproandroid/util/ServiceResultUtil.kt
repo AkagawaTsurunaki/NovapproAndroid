@@ -17,7 +17,7 @@ object ServiceResultUtil {
     }
 
     fun show(content: android.content.Context, serviceMessage: ServiceMessage): Boolean {
-        Toast.makeText(content, serviceMessage.message, Toast.LENGTH_LONG).show()
+        Toast.makeText(content, serviceMessage.message.toString(), Toast.LENGTH_LONG).show()
         return serviceMessage.level != ServiceMessage.Level.SUCCESS
     }
 }
