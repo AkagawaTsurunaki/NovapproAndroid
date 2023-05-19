@@ -31,17 +31,17 @@ class LoginActivity : ComponentActivity() {
 
         // 为按钮绑定事件
         binding.loginLayoutButtonLogin.setOnClickListener {
-                val userId = binding.loginLayoutEditTextUserId.text.toString()
-                val password = binding.loginLayoutEditTextPassword.text.toString()
-                // 登录
-                val loginServiceResult = LoginService.login(userId, password)
-                // 获取User对象
-                val loginUser = loginServiceResult.second
-                if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
-                    // 转到对应的界面
-                    toActivity(loginUser!!)
-                }
+            val userId = binding.loginLayoutEditTextUserId.text.toString()
+            val password = binding.loginLayoutEditTextPassword.text.toString()
+            // 登录
+            val loginServiceResult = LoginService.login(userId, password)
+            // 获取User对象
+            val loginUser = loginServiceResult.second
+            if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
+                // 转到对应的界面
+                toActivity(loginUser!!)
             }
+        }
     }
 
     private fun toActivity(user: User) {
@@ -53,6 +53,7 @@ class LoginActivity : ComponentActivity() {
         }.apply { putExtra("loginUserId", user.id) }
         startActivity(intent)
     }
+
     private fun toTeacherActivity() = Intent(this, TeacherActivity::class.java)
     private fun toAdminActivity() = Intent(this, AdminActivity::class.java)
     private fun toStudentActivity() = Intent(this, StudentActivity::class.java)
