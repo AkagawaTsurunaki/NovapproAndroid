@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSON
 import com.alibaba.fastjson2.JSONObject
 import com.alibaba.fastjson2.TypeReference
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -15,7 +16,7 @@ import java.io.File
 object ResponseUtil {
 
     private val defaultServiceMessage = ServiceMessage(ServiceMessage.Level.FATAL, "诶我！出戳啦！")
-    private val defaultResult = Pair(
+    val defaultResult = Pair(
         defaultServiceMessage,
         null
     )
@@ -49,7 +50,7 @@ object ResponseUtil {
         return result
     }
 
-    fun <Model> getServiceResult(
+    inline fun <reified Model> getServiceResult(
         servletValue: String,
         params: Map<String, String>,
         fileParams: Map<String, File>
@@ -64,7 +65,7 @@ object ResponseUtil {
         return result
     }
 
-    fun <Model> getServiceResult(
+    inline fun <reified Model> getServiceResult(
         servletValue: String,
         params: Map<String, String>
     ): Pair<ServiceMessage, Model?> {
@@ -78,7 +79,7 @@ object ResponseUtil {
         return result
     }
 
-    fun <Model> getServiceResult(servletValue: String): Pair<ServiceMessage, Model?> {
+    inline fun <reified Model> getServiceResult(servletValue: String): Pair<ServiceMessage, Model?> {
         var result: Pair<ServiceMessage, Model?>
         runBlocking {
             withContext(Dispatchers.IO) {
@@ -100,13 +101,27 @@ object ResponseUtil {
         return result
     }
 
-    private fun <Model> parseResponse(response: Response?): Pair<ServiceMessage, Model?> {
+//    private fun <Model> parseResponse(response: Response?): Pair<ServiceMessage, Model?> {
+//        val jsonString = response?.body?.string()
+//        var result: Pair<ServiceMessage, Model?> = defaultResult
+//        if (jsonString != null) {
+//            val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}
+//
+//            val pair = JSON.parseObject(jsonString, pairType)
+//            // TODO(java.lang.ClassCastException: com.alibaba.fastjson2.JSONObject cannot be cast to com.github.akagawatsurunaki.android.novapproandroid.model.User)
+//            result = Pair(pair.left, pair.right)
+//        } else {
+//            Log.e("响应错误", "响应体为NULL")
+//        }
+//        return result
+//    }
+
+    inline fun <reified Model> parseResponse(response: Response?): Pair<ServiceMessage, Model?> {
         val jsonString = response?.body?.string()
         var result: Pair<ServiceMessage, Model?> = defaultResult
         if (jsonString != null) {
-            val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}
-            val pair = JSON.parseObject(jsonString, pairType)
-            // TODO(java.lang.ClassCastException: com.alibaba.fastjson2.JSONObject cannot be cast to com.github.akagawatsurunaki.android.novapproandroid.model.User)
+            val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}.type
+            val pair = JSON.parseObject<ImmutablePair<ServiceMessage, Model>>(jsonString, pairType)
             result = Pair(pair.left, pair.right)
         } else {
             Log.e("响应错误", "响应体为NULL")
