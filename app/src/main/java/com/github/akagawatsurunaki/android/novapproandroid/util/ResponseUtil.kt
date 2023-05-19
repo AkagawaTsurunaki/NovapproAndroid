@@ -1,6 +1,7 @@
 package com.github.akagawatsurunaki.android.novapproandroid.util
 
 import android.util.Log
+import com.alibaba.fastjson2.JSON
 import com.alibaba.fastjson2.JSONObject
 import com.alibaba.fastjson2.TypeReference
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
@@ -104,7 +105,8 @@ object ResponseUtil {
         var result: Pair<ServiceMessage, Model?> = defaultResult
         if (jsonString != null) {
             val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}
-            val pair = JSONObject.parseObject(jsonString, pairType)
+            val pair = JSON.parseObject(jsonString, pairType)
+            // TODO(java.lang.ClassCastException: com.alibaba.fastjson2.JSONObject cannot be cast to com.github.akagawatsurunaki.android.novapproandroid.model.User)
             result = Pair(pair.left, pair.right)
         } else {
             Log.e("响应错误", "响应体为NULL")
