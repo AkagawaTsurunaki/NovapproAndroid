@@ -24,11 +24,10 @@ object LoginService {
                 servletValue = "/android/login",
                 mapOf("userId" to userId, "rawPassword" to rawPassword)
             )
-
             val jsonString = response?.body?.string()
 
             if (jsonString != null) {
-                val pairType = object : TypeReference<Pair<ServiceMessage, User>>() {}
+                val pairType = object : TypeReference<Pair<ServiceMessage, User?>>() {}
                 result = JSONObject.parseObject(jsonString, pairType)
             } else {
                 Log.e("Response Error", "Response body is empty!")
