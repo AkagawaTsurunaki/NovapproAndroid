@@ -4,12 +4,16 @@ import android.util.Log
 import com.alibaba.fastjson2.JSONObject
 import com.alibaba.fastjson2.TypeReference
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import okhttp3.Response
+import org.apache.commons.lang3.tuple.ImmutablePair
 import java.io.File
 
 object ResponseUtil {
 
-    private val defaultServiceMessage = ServiceMessage(ServiceMessage.Level.FATAL, "默认服务响应，未知错误导致的服务失败")
+    private val defaultServiceMessage = ServiceMessage(ServiceMessage.Level.FATAL, "诶我！出戳啦！")
     private val defaultResult = Pair(
         defaultServiceMessage,
         null
@@ -21,10 +25,12 @@ object ResponseUtil {
         fileParams: Map<String, File>
     ): ServiceMessage {
         var result: ServiceMessage = defaultServiceMessage
-        Thread {
-            val response = ConnUtil.sendPostRequest(servletValue, params, fileParams)
-            result = parseServiceMessage(response)
-        }.start()
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                val response = ConnUtil.sendPostRequest(servletValue, params, fileParams)
+                result = parseServiceMessage(response)
+            }
+        }
         return result
     }
 
@@ -32,11 +38,13 @@ object ResponseUtil {
         servletValue: String,
         params: Map<String, String>
     ): ServiceMessage {
-        var result: ServiceMessage = defaultServiceMessage
-        Thread {
-            val response = ConnUtil.sendPostRequest(servletValue, params)
-            result = parseServiceMessage(response)
-        }.start()
+        var result: ServiceMessage
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                val response = ConnUtil.sendPostRequest(servletValue, params)
+                result = parseServiceMessage(response)
+            }
+        }
         return result
     }
 
@@ -45,11 +53,13 @@ object ResponseUtil {
         params: Map<String, String>,
         fileParams: Map<String, File>
     ): Pair<ServiceMessage, Model?> {
-        var result: Pair<ServiceMessage, Model?> = defaultResult
-        Thread {
-            val response = ConnUtil.sendPostRequest(servletValue, params, fileParams)
-            result = parseResponse<Model>(response)
-        }.start()
+        var result: Pair<ServiceMessage, Model?>
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                val response = ConnUtil.sendPostRequest(servletValue, params, fileParams)
+                result = parseResponse<Model>(response)
+            }
+        }
         return result
     }
 
@@ -57,20 +67,23 @@ object ResponseUtil {
         servletValue: String,
         params: Map<String, String>
     ): Pair<ServiceMessage, Model?> {
-        var result: Pair<ServiceMessage, Model?> = defaultResult
-        Thread {
-            val response = ConnUtil.sendPostRequest(servletValue, params)
-            result = parseResponse<Model>(response)
-        }.start()
+        var result: Pair<ServiceMessage, Model?>
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                val response = ConnUtil.sendPostRequest(servletValue, params)
+                result = parseResponse<Model>(response)
+            }
+        }
         return result
     }
 
     fun <Model> getServiceResult(servletValue: String): Pair<ServiceMessage, Model?> {
-        var result: Pair<ServiceMessage, Model?> = defaultResult
-        Thread {
-            val response = ConnUtil.sendGetRequest(servletValue)
-            result = parseResponse<Model>(response)
-        }.start()
+        var result: Pair<ServiceMessage, Model?>
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                val response = ConnUtil.sendGetRequest(servletValue)
+                result = parseResponse<Model>(response)
+            }}
         return result
     }
 
@@ -90,8 +103,9 @@ object ResponseUtil {
         val jsonString = response?.body?.string()
         var result: Pair<ServiceMessage, Model?> = defaultResult
         if (jsonString != null) {
-            val pairType = object : TypeReference<Pair<ServiceMessage, Model>>() {}
-            result = JSONObject.parseObject(jsonString, pairType)
+            val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}
+            val pair = JSONObject.parseObject(jsonString, pairType)
+            result = Pair(pair.left, pair.right)
         } else {
             Log.e("响应错误", "响应体为NULL")
         }
