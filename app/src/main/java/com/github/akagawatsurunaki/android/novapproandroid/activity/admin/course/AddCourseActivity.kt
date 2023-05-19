@@ -28,9 +28,16 @@ class AddCourseActivity : ComponentActivity() {
         setContentView(R.layout.add_course_layout)
         binding = AddCourseLayoutBinding.inflate(layoutInflater)
 
+        binding.buttonConfirmAddCourse.setOnClickListener {
+            addCourse()
+        }
+
+        binding.buttonCancelAddCourse.setOnClickListener {
+            finish()
+        }
     }
 
-    private fun updateCourse() {
+    private fun addCourse() {
 
         val course = Course(
             code = binding.textViewCourseCode.text.toString(),
@@ -46,6 +53,8 @@ class AddCourseActivity : ComponentActivity() {
 
         if (serviceResult.first.level != ServiceMessage.Level.SUCCESS) {
             Toast.makeText(this, serviceResult.first.message, Toast.LENGTH_LONG).show()
+        } else {
+            finish()
         }
 
     }
