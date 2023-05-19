@@ -62,7 +62,7 @@ class UserManagementActivity : ComponentActivity() {
     }
 
     private fun toAddUserMsgBox() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, AddUserActivity::class.java))
     }
 
     override fun onRestart() {
