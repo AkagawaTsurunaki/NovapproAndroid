@@ -20,14 +20,21 @@ object CourseService {
 
     fun deleteCourse(code: String): Pair<ServiceMessage, Course?> {
         return ResponseUtil.getServiceResult<Course>(
-            servletValue = "/android/courseService/getAllCourses",
+            servletValue = "/android/courseService/deleteCourse",
             mapOf("code" to code)
         )
     }
 
     fun updateCourse(course: Course): Pair<ServiceMessage, Course?> {
         return ResponseUtil.getServiceResult<Course>(
-            servletValue = "/android/courseService/getAllCourses",
+            servletValue = "/android/courseService/updateCourse",
+            mapOf("course" to JSONObject.toJSONString(course))
+        )
+    }
+
+    fun addCourse(course: Course): Pair<ServiceMessage, Course?> {
+        return ResponseUtil.getServiceResult<Course>(
+            servletValue = "/android/courseService/addCourse",
             mapOf("course" to JSONObject.toJSONString(course))
         )
     }
