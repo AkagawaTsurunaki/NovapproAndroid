@@ -30,8 +30,7 @@ class LoginActivity : ComponentActivity() {
         setContentView(binding.root)
 
         // 为按钮绑定事件
-        binding.loginLayoutButtonLogin
-            .setOnClickListener {
+        binding.loginLayoutButtonLogin.setOnClickListener {
                 val userId = binding.loginLayoutEditTextUserId.text.toString()
                 val password = binding.loginLayoutEditTextPassword.text.toString()
                 // 登录
