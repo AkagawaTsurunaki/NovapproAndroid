@@ -14,10 +14,8 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.core.content.FileProvider
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApplyCourseLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.databinding.CheckCourseApplicationsLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
 import java.io.File
@@ -38,7 +36,7 @@ class ApplyCourseActivity : ComponentActivity() {
 
         val coursesCanBeAppliedServiceMessage = CourseService.getCoursesCanBeApplied()
 
-        if (coursesCanBeAppliedServiceMessage.first.level != ServiceMessage.Level.SUCCESS) {
+        if (coursesCanBeAppliedServiceMessage.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, coursesCanBeAppliedServiceMessage.first.message, Toast.LENGTH_LONG).show()
             return
         }
@@ -89,7 +87,7 @@ class ApplyCourseActivity : ComponentActivity() {
             val serviceMessage = ApplyCourseService.createCourseApplication(
                 courseId = selectedCourseId, remark = remark, file = outputImage
             )
-            if (serviceMessage.level != ServiceMessage.Level.SUCCESS) {
+            if (serviceMessage.messageLevel != Level.SUCCESS) {
                 Toast.makeText(this, serviceMessage.message, Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, "成功申请了一个课程", Toast.LENGTH_LONG).show()

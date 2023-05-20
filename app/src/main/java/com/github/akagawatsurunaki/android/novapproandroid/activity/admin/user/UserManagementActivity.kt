@@ -7,9 +7,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.alibaba.fastjson2.JSONObject
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.UserManagementLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserManageService
 
@@ -31,7 +30,7 @@ class UserManagementActivity : ComponentActivity() {
     private fun initTableLayout() {
         val getAllUsersServiceResult = UserManageService.getAllUsers()
 
-        if (getAllUsersServiceResult.first.level != ServiceMessage.Level.SUCCESS) {
+        if (getAllUsersServiceResult.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, getAllUsersServiceResult.first.message, Toast.LENGTH_LONG).show()
         }
 

@@ -4,6 +4,7 @@ import android.util.Log
 import com.alibaba.fastjson2.JSON
 import com.alibaba.fastjson2.JSONObject
 import com.alibaba.fastjson2.TypeReference
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import java.io.File
 
 object ResponseUtil {
 
-    private val defaultServiceMessage = ServiceMessage(ServiceMessage.Level.FATAL, "诶我！出戳啦！")
+    private val defaultServiceMessage = ServiceMessage(Level.FATAL, "诶我！出戳啦！")
     val defaultResult = Pair(
         defaultServiceMessage,
         null

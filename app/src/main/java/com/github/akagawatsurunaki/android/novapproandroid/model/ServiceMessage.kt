@@ -1,8 +1,5 @@
 package com.github.akagawatsurunaki.android.novapproandroid.model
-
-class ServiceMessage(var level: Level?, var message: String?) {
-    enum class Level {
-        SUCCESS, INFO, WARN, ERROR, FATAL
-    }
-
+enum class Level {
+    SUCCESS, INFO, WARN, ERROR, FATAL
 }
+data class ServiceMessage(var messageLevel: Level?, var message: String?) {}

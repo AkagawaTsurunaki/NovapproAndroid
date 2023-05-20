@@ -6,9 +6,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CheckCourseApplicationsLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
 
 class CheckCourseApplicationsActivity : ComponentActivity() {
@@ -23,7 +22,7 @@ class CheckCourseApplicationsActivity : ComponentActivity() {
 
         val getCourseApplicationsServiceMessage = ApplyCourseService.getCourseApplications()
 
-        if (getCourseApplicationsServiceMessage.first.level != ServiceMessage.Level.SUCCESS) {
+        if (getCourseApplicationsServiceMessage.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(
                 this,
                 getCourseApplicationsServiceMessage.first.message,

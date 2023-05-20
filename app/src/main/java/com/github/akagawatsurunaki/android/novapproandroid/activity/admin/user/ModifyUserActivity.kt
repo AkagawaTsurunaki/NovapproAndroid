@@ -6,10 +6,9 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.alibaba.fastjson2.JSONObject
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModifyUserLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserManageService
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
@@ -98,7 +97,7 @@ class ModifyUserActivity : ComponentActivity() {
         val updateUserServiceResult =
             UserManageService.updateUser(User(userId, username, null, userType))
 
-        if (updateUserServiceResult.first.level != ServiceMessage.Level.SUCCESS) {
+        if (updateUserServiceResult.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, updateUserServiceResult.first.message, Toast.LENGTH_LONG).show()
         }
     }

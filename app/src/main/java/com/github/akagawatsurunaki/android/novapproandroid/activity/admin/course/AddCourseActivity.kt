@@ -3,10 +3,9 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.cours
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.AddCourseLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Course
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
 import java.math.BigDecimal
 
@@ -44,7 +43,7 @@ class AddCourseActivity : ComponentActivity() {
 
         val serviceResult = CourseService.addCourse(course)
 
-        if (serviceResult.first.level != ServiceMessage.Level.SUCCESS) {
+        if (serviceResult.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, serviceResult.first.message, Toast.LENGTH_LONG).show()
         } else {
             finish()

@@ -1,11 +1,12 @@
 package com.github.akagawatsurunaki.android.novapproandroid.util
 
 import android.widget.Toast
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 
 object ServiceResultUtil {
     fun isSuccess(content: android.content.Context, serviceMessage: ServiceMessage) : Boolean {
-        if (serviceMessage.level != ServiceMessage.Level.SUCCESS) {
+        if (serviceMessage.messageLevel != Level.SUCCESS) {
             show(content, serviceMessage)
             return false
         }
@@ -18,6 +19,6 @@ object ServiceResultUtil {
 
     fun show(content: android.content.Context, serviceMessage: ServiceMessage): Boolean {
         Toast.makeText(content, serviceMessage.message.toString(), Toast.LENGTH_LONG).show()
-        return serviceMessage.level != ServiceMessage.Level.SUCCESS
+        return serviceMessage.messageLevel != Level.SUCCESS
     }
 }

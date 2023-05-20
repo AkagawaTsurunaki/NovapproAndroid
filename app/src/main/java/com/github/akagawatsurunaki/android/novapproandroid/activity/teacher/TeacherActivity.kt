@@ -6,9 +6,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.TeacherLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
 
 class TeacherActivity : ComponentActivity() {
@@ -27,7 +26,7 @@ class TeacherActivity : ComponentActivity() {
         loginUserId?.let {
             val getApplicationItemsServiceResult = ApprovalService.getApplicationItems(loginUserId)
 
-            if (getApplicationItemsServiceResult.first.level != ServiceMessage.Level.SUCCESS) {
+            if (getApplicationItemsServiceResult.first.messageLevel != Level.SUCCESS) {
                 Toast.makeText(
                     this,
                     getApplicationItemsServiceResult.first.message,

@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.alibaba.fastjson2.JSONObject
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModifyCourseLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Course
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 import java.math.BigDecimal
@@ -76,7 +75,7 @@ class ModifyCourseActivity : ComponentActivity() {
 
         val serviceResult = CourseService.updateCourse(course)
 
-        if (serviceResult.first.level != ServiceMessage.Level.SUCCESS) {
+        if (serviceResult.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, serviceResult.first.message, Toast.LENGTH_LONG).show()
         }
 

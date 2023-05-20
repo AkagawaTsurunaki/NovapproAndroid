@@ -6,7 +6,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CourseApplicationDetailLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
+import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseApplicationDetailService
 
@@ -38,7 +38,7 @@ class CourseApplicationDetailActivity : ComponentActivity() {
     private fun initApprovalFlowDetails(flowNo: String) {
         // 检查服务响应
         val getApprovalFlowDetailsServiceMessage = ApprovalService.getApprovalFlowDetails(flowNo)
-        if (getApprovalFlowDetailsServiceMessage.first.level != ServiceMessage.Level.SUCCESS) {
+        if (getApprovalFlowDetailsServiceMessage.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(
                 this,
                 getApprovalFlowDetailsServiceMessage.first.message,
@@ -85,7 +85,7 @@ class CourseApplicationDetailActivity : ComponentActivity() {
         // 检查服务响应
         val getAppliedCoursesServiceMessage =
             CourseApplicationDetailService.getAppliedCourses(flowNo)
-        if (getAppliedCoursesServiceMessage.first.level != ServiceMessage.Level.SUCCESS) {
+        if (getAppliedCoursesServiceMessage.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, getAppliedCoursesServiceMessage.first.message, Toast.LENGTH_LONG)
                 .show()
             return
