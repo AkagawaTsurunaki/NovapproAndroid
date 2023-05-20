@@ -6,7 +6,6 @@ import com.alibaba.fastjson2.JSONObject
 import com.alibaba.fastjson2.TypeReference
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
-import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -87,31 +86,43 @@ object ResponseUtil {
             withContext(Dispatchers.IO) {
                 val response = ConnUtil.sendGetRequest(servletValue)
                 result = parseResponse<Model>(response)
-            }}
-        return result
-    }
-
-    private fun parseServiceMessage(response: Response?): ServiceMessage {
-        val jsonString = response?.body?.string()
-        var result: ServiceMessage = defaultServiceMessage
-        if (jsonString != null) {
-            val pairType = object : TypeReference<ServiceMessage>() {}
-            result = JSONObject.parseObject(jsonString, pairType)
-        } else {
-            Log.e("响应错误", "响应体为NULL")
+            }
         }
         return result
     }
 
+    private fun parseServiceMessage(response: Response?): ServiceMessage {
+        return try {
+            val jsonString = response?.body?.string()
+            var result: ServiceMessage = defaultServiceMessage
+            if (jsonString != null) {
+                val pairType = object : TypeReference<ServiceMessage>() {}
+                result = JSONObject.parseObject(jsonString, pairType)
+            } else {
+                Log.e("响应错误", "响应体为NULL")
+            }
+            result
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ServiceMessage(Level.FATAL, "JSON字符串解析失败")
+        }
+    }
+
     inline fun <reified Model> parseResponse(response: Response?): Pair<ServiceMessage, Model?> {
-        val jsonString = response?.body?.string()
         var result: Pair<ServiceMessage, Model?> = defaultResult
-        if (jsonString != null) {
-            val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}.type
-            val pair = JSON.parseObject<ImmutablePair<ServiceMessage, Model>>(jsonString, pairType)
-            result = Pair(pair.left, pair.right)
-        } else {
-            Log.e("响应错误", "响应体为NULL")
+        try {
+            val jsonString = response?.body?.string()
+            if (jsonString != null) {
+                val pairType =
+                    object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}.type
+                val pair =
+                    JSON.parseObject<ImmutablePair<ServiceMessage, Model>>(jsonString, pairType)
+                result = Pair(pair.left, pair.right)
+            } else {
+                Log.e("响应错误", "响应体为NULL")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
         return result
     }
