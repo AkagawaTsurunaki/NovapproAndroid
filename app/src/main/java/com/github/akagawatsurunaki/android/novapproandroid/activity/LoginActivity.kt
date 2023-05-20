@@ -2,17 +2,12 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.AdminActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.StudentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.teacher.TeacherActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.LoginLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.LoginService
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
@@ -31,16 +26,32 @@ class LoginActivity : ComponentActivity() {
 
         // 为按钮绑定事件
         binding.loginLayoutButtonLogin.setOnClickListener {
-            val userId = binding.loginLayoutEditTextUserId.text.toString()
-            val password = binding.loginLayoutEditTextPassword.text.toString()
-            // 登录
-            val loginServiceResult = LoginService.login(userId, password)
-            // 获取User对象
-            val loginUser = loginServiceResult.second
-            if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
-                // 转到对应的界面
-                toActivity(loginUser!!)
-            }
+            // login()
+            testLogin()
+        }
+    }
+
+    private fun testLogin() {
+        // 登录
+        val loginServiceResult = LoginService.login("20210002", "1234567890")
+        // 获取User对象
+        val loginUser = loginServiceResult.second
+        if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
+            // 转到对应的界面
+            toActivity(loginUser!!)
+        }
+    }
+
+    private fun login() {
+        val userId = binding.loginLayoutEditTextUserId.text.toString()
+        val password = binding.loginLayoutEditTextPassword.text.toString()
+        // 登录
+        val loginServiceResult = LoginService.login(userId, password)
+        // 获取User对象
+        val loginUser = loginServiceResult.second
+        if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
+            // 转到对应的界面
+            toActivity(loginUser!!)
         }
     }
 
