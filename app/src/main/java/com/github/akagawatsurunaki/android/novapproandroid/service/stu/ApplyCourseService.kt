@@ -4,6 +4,7 @@ import com.github.akagawatsurunaki.android.novapproandroid.enumeration.ApprovalS
 import com.github.akagawatsurunaki.android.novapproandroid.model.CourseApplication
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.util.ResponseUtil
+import org.apache.commons.lang3.tuple.ImmutablePair
 import java.io.File
 
 object ApplyCourseService {
@@ -18,8 +19,12 @@ object ApplyCourseService {
     }
 
     fun getCourseApplications(): Pair<ServiceMessage, Pair<List<CourseApplication>, List<ApprovalStatus>>?> {
-        // TODO(to test here, idk there is an error or not)
-        return ResponseUtil.getServiceResult<Pair<List<CourseApplication>, List<ApprovalStatus>>>(
+        // FIX: 必须将ImmutablePair对象先取出值后，再转化为Kotlin的Pair对象
+        val serviceMessage = ResponseUtil.getServiceResult<ImmutablePair<List<CourseApplication>, List<ApprovalStatus>>>(
             servletValue = "/android/applyCourseService/getCourseApplications")
+        if (serviceMessage.second == null ) {
+            return Pair(serviceMessage.first, null)
+        }
+        return Pair(serviceMessage.first, Pair(serviceMessage.second!!.left, serviceMessage.second!!.right))
     }
 }

@@ -94,6 +94,7 @@ object ResponseUtil {
     private fun parseServiceMessage(response: Response?): ServiceMessage {
         return try {
             val jsonString = response?.body?.string()
+            Log.i("json", "parseServiceMessage: $jsonString")
             var result: ServiceMessage = defaultServiceMessage
             if (jsonString != null) {
                 val pairType = object : TypeReference<ServiceMessage>() {}
@@ -112,6 +113,7 @@ object ResponseUtil {
         var result: Pair<ServiceMessage, Model?> = defaultResult
         try {
             val jsonString = response?.body?.string()
+            Log.i("json", "parseServiceMessage: $jsonString")
             if (jsonString != null) {
                 val pairType =
                     object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}.type
