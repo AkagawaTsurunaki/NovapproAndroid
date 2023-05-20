@@ -2,8 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--拍照-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--写入SD卡的权限：如果你希望保存相机拍照后的照片-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--读取SD卡的权限:打开相册选取图片所必须的权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
+
 
     <application
         android:allowBackup="true"
@@ -16,6 +29,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NovapproAndroid"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.github.akagawatsurunaki.android.novapproandroid.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+
+        </provider>
+
+
         <activity
             android:name=".activity.admin.course.AddCourseActivity"
             android:exported="false"
@@ -70,7 +97,9 @@
             android:name=".activity.stu.ApplyCourseActivity"
             android:exported="false"
             android:label="@string/title_activity_apply_course"
-            android:theme="@style/Theme.NovapproAndroid" />
+            android:theme="@style/Theme.NovapproAndroid" >
+
+        </activity>
         <activity
             android:name=".activity.teacher.TeacherActivity"
             android:exported="false"

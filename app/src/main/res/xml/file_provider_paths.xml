@@ -1,0 +1,8 @@
+<paths>
+    <external-path
+        name="files_root"
+        path="." />
+    <external-path
+        name="external_storage_root"
+        path="Android/data/com.github.akagawatsurunaki.android.novapproandroid/files/" />
+</paths>

@@ -64,7 +64,7 @@ class ApplyCourseActivity : ComponentActivity() {
             imageUri =
                 FileProvider.getUriForFile(
                     this,
-                    "com.github.akagawatsurunaki.android.novappro.fileprovider",
+                    "com.github.akagawatsurunaki.android.novapproandroid.fileProvider",
                     outputImage
                 )
             // 启动相机程序
