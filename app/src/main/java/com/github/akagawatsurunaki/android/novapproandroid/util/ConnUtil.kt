@@ -1,5 +1,6 @@
 package com.github.akagawatsurunaki.android.novapproandroid.util
 
+import android.util.Log
 import com.github.akagawatsurunaki.android.novapproandroid.config.Config
 import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -13,6 +14,7 @@ import java.io.IOException
 
 object ConnUtil {
 
+    val client = OkHttpClient()
     var session = ""
 
     /**
@@ -31,6 +33,7 @@ object ConnUtil {
             val request = Request.Builder()
                 .apply {
                     if (session.isNotBlank()) {
+                        Log.i("send", "sendPostRequest: $session")
                         addHeader("cookie", session)
                     }
                 }
@@ -38,7 +41,6 @@ object ConnUtil {
                 .post(requestBody)
                 .build()
 
-            val client = OkHttpClient()
             response = client.newCall(request).execute()
 
 
@@ -82,6 +84,7 @@ object ConnUtil {
             val request = Request.Builder()
                 .apply {
                     if (session.isNotBlank()) {
+                        Log.i("send", "sendPostRequest: $session")
                         addHeader("cookie", session)
                     }
                 }
@@ -90,7 +93,6 @@ object ConnUtil {
                 .build()
 
             // 创建OkHttpClient实例对象并发送请求
-            val client = OkHttpClient()
             response = client.newCall(request).execute()
 
         } catch (e: IOException) {
@@ -109,13 +111,14 @@ object ConnUtil {
             val request = Request.Builder()
                 .apply {
                     if (session.isNotBlank()) {
+                        Log.i("send", "sendPostRequest: $session")
                         addHeader("cookie", session)
                     }
                 }
                 .url(url)
                 .build()
 
-            val client = OkHttpClient()
+
             response = client.newCall(request).execute()
 
         } catch (e: Exception) {
