@@ -4,24 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <RadioGroup
-        android:id="@+id/radio_group_courses"
-        android:layout_width="wrap_content"
+    <Toolbar
+        android:title="学生申请课程"
+        android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    </Toolbar>
 
-    </RadioGroup>
-    <EditText
-        android:id="@+id/apply_course_layout_edit_text_remark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </EditText>
-
-    <Button
-        android:id="@+id/button_take_photo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/apply_course_layout_button_take_photo" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请选择您要申请的课程（每次申请只能选择1门课程）">
+
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/radio_group_courses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="申请理由">
+        </TextView>
+        <EditText
+            android:id="@+id/apply_course_layout_edit_text_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="您为什么要申请选择这门课程呢？">
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="上传证明">
+        </TextView>
+        <Button
+            android:id="@+id/button_take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_course_layout_button_take_photo" />
+        <ImageView
+            android:id="@+id/image_view_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button_create_course_application"
@@ -29,10 +74,5 @@
         android:layout_height="wrap_content"
         android:text="@string/create_course_application" />
 
-    <ImageView
-        android:id="@+id/image_view_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
