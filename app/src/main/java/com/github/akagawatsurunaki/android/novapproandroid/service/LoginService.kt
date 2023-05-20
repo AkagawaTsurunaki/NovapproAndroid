@@ -1,15 +1,9 @@
 package com.github.akagawatsurunaki.android.novapproandroid.service
 
-import android.app.Service
-import android.content.Intent
 import android.util.Log
-import androidx.annotation.Nullable
-import androidx.compose.runtime.Immutable
 import com.alibaba.fastjson2.JSON
-import com.alibaba.fastjson2.JSONObject
 import com.alibaba.fastjson2.TypeReference
 import com.github.akagawatsurunaki.android.novapproandroid.config.Config
-import com.github.akagawatsurunaki.android.novapproandroid.model.Course
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
@@ -63,8 +57,8 @@ object LoginService {
                         val pairType = object : TypeReference<ImmutablePair<ServiceMessage, User>>() {}.type
                         val pair = JSON.parseObject<ImmutablePair<ServiceMessage, User>>(jsonString, pairType)
                         result = Pair(pair.left, pair.right)
-                        // 初始化session
-                        ConnUtil.session = SessionUtil.getSession(response) ?: ""
+//                        // 初始化session
+//                        ConnUtil.session = SessionUtil.getSession(response) ?: ""
                     } else {
                         Log.e("响应错误", "响应体为NULL")
                     }

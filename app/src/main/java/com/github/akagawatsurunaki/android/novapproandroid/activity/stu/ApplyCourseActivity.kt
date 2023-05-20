@@ -16,15 +16,17 @@ import androidx.activity.ComponentActivity
 import androidx.core.content.FileProvider
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApplyCourseLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
+import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 import java.io.File
 
 class ApplyCourseActivity : ComponentActivity() {
     private val takePhoto = 1
     private lateinit var imageUri: Uri
     lateinit var outputImage: File
-    private lateinit var binding : ApplyCourseLayoutBinding
+    private lateinit var binding: ApplyCourseLayoutBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +39,8 @@ class ApplyCourseActivity : ComponentActivity() {
         val coursesCanBeAppliedServiceMessage = CourseService.getCoursesCanBeApplied()
 
         if (coursesCanBeAppliedServiceMessage.first.messageLevel != Level.SUCCESS) {
-            Toast.makeText(this, coursesCanBeAppliedServiceMessage.first.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, coursesCanBeAppliedServiceMessage.first.message, Toast.LENGTH_LONG)
+                .show()
             return
         }
 
@@ -45,12 +48,10 @@ class ApplyCourseActivity : ComponentActivity() {
 
         // 根据可申请的课程进行动态radio button加载
         coursesCanBeApplied.forEach {
-            binding.radioGroupCourses.addView(
-                RadioButton(this).apply {
-                    text = "${it.code.toString()} | ${it.name.toString()}"
-                    id = coursesCanBeApplied.indexOf(it)
-                }
-            )
+            binding.radioGroupCourses.addView(RadioButton(this).apply {
+                text = "${it.code.toString()} | ${it.name.toString()}"
+                id = coursesCanBeApplied.indexOf(it)
+            })
         }
 
         // 拍照按钮事件绑定
@@ -61,12 +62,11 @@ class ApplyCourseActivity : ComponentActivity() {
                 outputImage.delete()
             }
             outputImage.createNewFile()
-            imageUri =
-                FileProvider.getUriForFile(
-                    this,
-                    "com.github.akagawatsurunaki.android.novapproandroid.fileProvider",
-                    outputImage
-                )
+            imageUri = FileProvider.getUriForFile(
+                this,
+                "com.github.akagawatsurunaki.android.novapproandroid.fileProvider",
+                outputImage
+            )
             // 启动相机程序
             val intent = Intent("android.media.action.IMAGE_CAPTURE")
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
@@ -75,28 +75,38 @@ class ApplyCourseActivity : ComponentActivity() {
 
         // 创建课程申请按钮事件绑定
         binding.buttonCreateCourseApplication.setOnClickListener {
+            val checkedRadioButtonId = binding.radioGroupCourses.checkedRadioButtonId
+
+            if (checkedRadioButtonId == -1) {
+                Toast.makeText(this, "您必须选择1门课程", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            // 如果没有被初始化
+            if (!this::outputImage.isInitialized) {
+                Toast.makeText(this, "您必须上传1张证明图片", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             val remark = binding.applyCourseLayoutEditTextRemark.text.toString()
 
-            val selectedCourseId = coursesCanBeApplied[binding.radioGroupCourses.checkedRadioButtonId].code
-
-            if (selectedCourseId == null) {
-                Toast.makeText(this, "您还没有选中一个课程", Toast.LENGTH_LONG).show()
+            if (remark.isBlank()) {
+                Toast.makeText(this, "您必须填写申请理由", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
             val serviceMessage = ApplyCourseService.createCourseApplication(
-                courseId = selectedCourseId, remark = remark, file = outputImage
+                courseId = coursesCanBeApplied[checkedRadioButtonId].code ?: "",
+                remark = remark,
+                file = outputImage
             )
-            if (serviceMessage.messageLevel != Level.SUCCESS) {
-                Toast.makeText(this, serviceMessage.message, Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "成功申请了一个课程", Toast.LENGTH_LONG).show()
-            }
-            // 完成申请后，返回至上一个页面
-            finish()
-        }
 
+            if (ServiceResultUtil.isSuccess(this, serviceMessage)) {
+                finish()
+            }
+        }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -115,8 +125,7 @@ class ApplyCourseActivity : ComponentActivity() {
     private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
         val exif = ExifInterface(outputImage.path)
         val orientation = exif.getAttributeInt(
-            ExifInterface.TAG_ORIENTATION,
-            ExifInterface.ORIENTATION_NORMAL
+            ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL
         )
         return when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90)
@@ -130,8 +139,7 @@ class ApplyCourseActivity : ComponentActivity() {
         val matrix = Matrix()
         matrix.postRotate(degree.toFloat())
         val rotatedBitmap = Bitmap.createBitmap(
-            bitmap, 0, 0, bitmap.width, bitmap.height,
-            matrix, true
+            bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true
         )
         bitmap.recycle() // 将不再需要的Bitmap对象回收
         return rotatedBitmap
