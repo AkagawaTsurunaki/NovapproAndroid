@@ -47,7 +47,7 @@ class ApplyCourseActivity : ComponentActivity() {
         coursesCanBeApplied.forEach {
             binding.radioGroupCourses.addView(
                 RadioButton(this).apply {
-                    text = "${it::code} | ${it::name}"
+                    text = "${it.code.toString()} | ${it.name.toString()}"
                     id = coursesCanBeApplied.indexOf(it)
                 }
             )
