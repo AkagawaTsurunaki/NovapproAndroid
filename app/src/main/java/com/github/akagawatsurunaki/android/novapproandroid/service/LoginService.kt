@@ -14,6 +14,7 @@ import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.util.ConnUtil
 import com.github.akagawatsurunaki.android.novapproandroid.util.ResponseUtil
+import com.github.akagawatsurunaki.android.novapproandroid.util.SessionUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -23,6 +24,7 @@ import okhttp3.Request
 import org.apache.commons.lang3.tuple.ImmutablePair
 
 object LoginService {
+
     fun login(userId: String, rawPassword: String): Pair<ServiceMessage, User?> {
         return ResponseUtil.getServiceResult<User>(
             servletValue = "/android/login",

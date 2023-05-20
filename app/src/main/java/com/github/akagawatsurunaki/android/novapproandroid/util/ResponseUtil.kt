@@ -17,6 +17,9 @@ import java.io.File
 object ResponseUtil {
 
     private val defaultServiceMessage = ServiceMessage(Level.FATAL, "诶我！出戳啦！")
+
+    var session = ""
+
     val defaultResult = Pair(
         defaultServiceMessage,
         null
@@ -102,21 +105,6 @@ object ResponseUtil {
         return result
     }
 
-//    private fun <Model> parseResponse(response: Response?): Pair<ServiceMessage, Model?> {
-//        val jsonString = response?.body?.string()
-//        var result: Pair<ServiceMessage, Model?> = defaultResult
-//        if (jsonString != null) {
-//            val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}
-//
-//            val pair = JSON.parseObject(jsonString, pairType)
-//            // TODO(java.lang.ClassCastException: com.alibaba.fastjson2.JSONObject cannot be cast to com.github.akagawatsurunaki.android.novapproandroid.model.User)
-//            result = Pair(pair.left, pair.right)
-//        } else {
-//            Log.e("响应错误", "响应体为NULL")
-//        }
-//        return result
-//    }
-
     inline fun <reified Model> parseResponse(response: Response?): Pair<ServiceMessage, Model?> {
         val jsonString = response?.body?.string()
         var result: Pair<ServiceMessage, Model?> = defaultResult
@@ -124,6 +112,8 @@ object ResponseUtil {
             val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}.type
             val pair = JSON.parseObject<ImmutablePair<ServiceMessage, Model>>(jsonString, pairType)
             result = Pair(pair.left, pair.right)
+            // 初始化session
+            ConnUtil.session = SessionUtil.getSession(response) ?: ""
         } else {
             Log.e("响应错误", "响应体为NULL")
         }

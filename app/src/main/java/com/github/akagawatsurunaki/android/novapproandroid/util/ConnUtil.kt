@@ -13,6 +13,8 @@ import java.io.IOException
 
 object ConnUtil {
 
+    var session = ""
+
     /**
      * 传入Servlet的访问路径，以及post请求的参数map，注意必须在Thread中调用此方法
      */
@@ -27,6 +29,11 @@ object ConnUtil {
             }.build()
 
             val request = Request.Builder()
+                .apply {
+                    if (session.isNotBlank()) {
+                        addHeader("cookie", session)
+                    }
+                }
                 .url(url)
                 .post(requestBody)
                 .build()
@@ -73,6 +80,11 @@ object ConnUtil {
 
             // 创建Request对象
             val request = Request.Builder()
+                .apply {
+                    if (session.isNotBlank()) {
+                        addHeader("cookie", session)
+                    }
+                }
                 .url(url)
                 .post(requestBody)
                 .build()
@@ -95,6 +107,11 @@ object ConnUtil {
             val url = Config.prefix + servletValue
 
             val request = Request.Builder()
+                .apply {
+                    if (session.isNotBlank()) {
+                        addHeader("cookie", session)
+                    }
+                }
                 .url(url)
                 .build()
 

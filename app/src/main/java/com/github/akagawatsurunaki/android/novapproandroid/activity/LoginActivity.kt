@@ -10,7 +10,9 @@ import com.github.akagawatsurunaki.android.novapproandroid.databinding.LoginLayo
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.LoginService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ConnUtil
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
+import com.github.akagawatsurunaki.android.novapproandroid.util.SessionUtil
 
 
 class LoginActivity : ComponentActivity() {
