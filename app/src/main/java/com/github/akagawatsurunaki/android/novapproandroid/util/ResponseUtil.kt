@@ -18,8 +18,6 @@ object ResponseUtil {
 
     private val defaultServiceMessage = ServiceMessage(Level.FATAL, "诶我！出戳啦！")
 
-    var session = ""
-
     val defaultResult = Pair(
         defaultServiceMessage,
         null
@@ -112,8 +110,6 @@ object ResponseUtil {
             val pairType = object : TypeReference<ImmutablePair<ServiceMessage, Model>>() {}.type
             val pair = JSON.parseObject<ImmutablePair<ServiceMessage, Model>>(jsonString, pairType)
             result = Pair(pair.left, pair.right)
-            // 初始化session
-            ConnUtil.session = SessionUtil.getSession(response) ?: ""
         } else {
             Log.e("响应错误", "响应体为NULL")
         }
