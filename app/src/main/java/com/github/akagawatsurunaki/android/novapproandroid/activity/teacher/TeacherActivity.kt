@@ -21,10 +21,10 @@ class TeacherActivity : ComponentActivity() {
         // 设置布局
         setContentView(binding.root)
 
-        val loginUserId = intent.getStringExtra("loginUserId")
+        val loginUserId = intent.getIntExtra("loginUserId", 0)
 
         loginUserId?.let {
-            val getApplicationItemsServiceResult = ApprovalService.getApplicationItems(loginUserId)
+            val getApplicationItemsServiceResult = ApprovalService.getApplicationItems(loginUserId.toString())
 
             if (getApplicationItemsServiceResult.first.messageLevel != Level.SUCCESS) {
                 Toast.makeText(

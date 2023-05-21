@@ -26,14 +26,14 @@ class LoginActivity : ComponentActivity() {
 
         // 为按钮绑定事件
         binding.loginLayoutButtonLogin.setOnClickListener {
-            // login()
-            testLogin()
+             login()
+//            testLogin()
         }
     }
 
     private fun testLogin() {
         // 登录
-        val loginServiceResult = LoginService.login("20210002", "1234567890")
+        val loginServiceResult = LoginService.login("20210004", "73gd98qw!")
         // 获取User对象
         val loginUser = loginServiceResult.second
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
