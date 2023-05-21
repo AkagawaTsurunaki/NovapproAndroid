@@ -3,25 +3,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include layout="@layout/model_user_layout">
+
+    </include>
     <TableLayout
         android:id="@+id/table_layout_all_users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/model_user_layout"></include>
 
-        <TableRow android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <TextView
-                android:id="@+id/text_view_add_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="添加用户">
 
-            </TextView>
-
-        </TableRow>
     </TableLayout>
-
+    <Button
+        android:id="@+id/button_add_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加用户">
+    </Button>
 </LinearLayout>

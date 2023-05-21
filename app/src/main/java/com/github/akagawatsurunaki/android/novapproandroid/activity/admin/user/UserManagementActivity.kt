@@ -1,5 +1,6 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TableRow
@@ -11,6 +12,7 @@ import com.github.akagawatsurunaki.android.novapproandroid.databinding.UserManag
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserManageService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 class UserManagementActivity : ComponentActivity() {
 
@@ -22,11 +24,12 @@ class UserManagementActivity : ComponentActivity() {
         // 设置布局
         setContentView(binding.root)
         initTableLayout()
-        binding.textViewAddUser.setOnClickListener {
+        binding.buttonAddUser.setOnClickListener {
             toAddUserActivity()
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initTableLayout() {
 
         // 先移除所有的View组件
@@ -35,24 +38,21 @@ class UserManagementActivity : ComponentActivity() {
 
         val getAllUsersServiceResult = UserManageService.getAllUsers()
 
-        if (getAllUsersServiceResult.first.messageLevel != Level.SUCCESS) {
-            Toast.makeText(this, getAllUsersServiceResult.first.message, Toast.LENGTH_LONG).show()
+        if (ServiceResultUtil.isFailed(this, getAllUsersServiceResult.first)) {
+            return
         }
 
         val allUsers = getAllUsersServiceResult.second ?: emptyList()
-
-
-
         allUsers.forEach {
             binding.tableLayoutAllUsers.addView(
                 TableRow(this).apply {
 
                     addView(TextView(this@UserManagementActivity).apply {
-                        text = it.id.toString()
+                        text = it.id.toString() + "                        "
                     })
 
                     addView(TextView(this@UserManagementActivity).apply {
-                        text = it.username
+                        text = it.username + "                      "
                     })
 
                     addView(TextView(this@UserManagementActivity).apply {
@@ -78,7 +78,7 @@ class UserManagementActivity : ComponentActivity() {
     // 弹出消息框，可以直接修改，也可以直接点击删除
     private fun toModifyUserActivity(selectedUser: User) {
         startActivity(Intent(this, ModifyUserActivity::class.java).apply {
-            putExtra("selectedUser", JSONObject.toJSONString(selectedUser))
+            putExtra("selectedUser", JSONObject.toJSONString(selectedUser).toString())
         })
     }
 }

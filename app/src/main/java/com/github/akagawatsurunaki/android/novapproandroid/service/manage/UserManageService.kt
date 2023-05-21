@@ -9,7 +9,6 @@ import com.github.akagawatsurunaki.android.novapproandroid.util.ResponseUtil
 object UserManageService {
 
     fun getAllUsers(): Pair<ServiceMessage, List<User>?> {
-        // TODO(to test here, idk there is an error or not)
         return ResponseUtil.getServiceResult<List<User>>(
             servletValue = "/android/userManageService/getAllUsers"
         )

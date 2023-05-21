@@ -33,17 +33,11 @@ class ModifyUserActivity : ComponentActivity() {
             return
         }
 
-        enumValues<UserType>().forEach {
-            binding.radioGroupUserType.addView(
-                RadioButton(this).apply {
-                    text = it.chinese
-                }
-            )
-        }
+        init(user)
 
         // 确认修改按钮
         binding.buttonConfirmModifyUser.setOnClickListener {
-            updateUser()
+            updateUser(user)
         }
 
         // 取消修改按钮
@@ -86,16 +80,43 @@ class ModifyUserActivity : ComponentActivity() {
                 }
             }
         }
-
     }
 
-    private fun updateUser() {
-        val userId = binding.textViewUserUsername.text.toString().toInt()
-        val username = binding.textViewUserUsername.text.toString()
+    private fun init(user: User) {
+
+        binding.radioGroupUserType.removeAllViews()
+
+        // 先初始化RadioGroup
+        enumValues<UserType>().forEach {
+            binding.radioGroupUserType.addView(
+                RadioButton(this).apply {
+                    text = it.chinese
+                }
+            )
+        }
+
+        // 再进行默认值的绑定
+        binding.textViewUserId.text = user.id.toString()
+        binding.editTextUserUsername.hint = user.username.toString()
+
+        binding.radioGroupUserType.apply {
+            check(enumValues<UserType>().indexOf(user.type))
+        }
+    }
+
+    private fun updateUser(originUser: User) {
+        val userId = binding.textViewUserId.text.toString().toInt()
+        val username = binding.editTextUserUsername.text.toString()
         val userType = enumValues<UserType>()[binding.radioGroupUserType.checkedRadioButtonId]
 
+        val newUser = User(userId, username, null, userType)
+
+        if (newUser == originUser) {
+            Toast.makeText(this, "新用户与旧用户属性一致", Toast.LENGTH_SHORT).show()
+        }
+
         val updateUserServiceResult =
-            UserManageService.updateUser(User(userId, username, null, userType))
+            UserManageService.updateUser(newUser)
 
         if (updateUserServiceResult.first.messageLevel != Level.SUCCESS) {
             Toast.makeText(this, updateUserServiceResult.first.message, Toast.LENGTH_LONG).show()
