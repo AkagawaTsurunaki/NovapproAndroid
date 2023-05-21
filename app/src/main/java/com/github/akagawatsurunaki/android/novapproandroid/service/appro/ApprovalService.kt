@@ -2,6 +2,7 @@ package com.github.akagawatsurunaki.android.novapproandroid.service.appro
 
 import com.github.akagawatsurunaki.android.novapproandroid.model.ApplicationItem
 import com.github.akagawatsurunaki.android.novapproandroid.model.ApprovalFlow
+import com.github.akagawatsurunaki.android.novapproandroid.model.ApprovalFlowDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.CourseApplicationItemDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.util.ResponseUtil
@@ -52,8 +53,8 @@ object ApprovalService {
         )
     }
 
-    fun getApprovalFlowDetails(flowNo: String): Pair<ServiceMessage, List<CourseApplicationItemDetail>?> {
-        return ResponseUtil.getServiceResult<List<CourseApplicationItemDetail>>(
+    fun getApprovalFlowDetails(flowNo: String): Pair<ServiceMessage, List<ApprovalFlowDetail>?> {
+        return ResponseUtil.getServiceResult<List<ApprovalFlowDetail>>(
             servletValue = "/android/approvalService/getApprovalFlowDetails",
             mapOf("flowNo" to flowNo)
         )

@@ -1,11 +1,17 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.stu
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CourseApplicationDetailLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApprovalFlowDetailLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.model.ApprovalFlowDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseApplicationDetailService
@@ -35,6 +41,7 @@ class CourseApplicationDetailActivity : ComponentActivity() {
         }
     }
 
+
     private fun initApprovalFlowDetails(flowNo: String) {
         // 检查服务响应
         val getApprovalFlowDetailsServiceMessage = ApprovalService.getApprovalFlowDetails(flowNo)
@@ -51,35 +58,33 @@ class CourseApplicationDetailActivity : ComponentActivity() {
         // 动态加载申请流明细
         val approvalFlowDetails = getApprovalFlowDetailsServiceMessage.second ?: emptyList()
         approvalFlowDetails.forEach {
-            binding.tableLayoutApprovalFlowDetails.apply {
-                addView(
-                    TableRow(this@CourseApplicationDetailActivity).apply {
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.flowNo
-                        })
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.title
-                        })
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.applicantId.toString()
-                        })
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.applicantName
-                        })
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.addTime.toString()
-                        })
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.approStatus!!.chinese
-                        })
-                        addView(TextView(this@CourseApplicationDetailActivity).apply {
-                            text = it.applCourses.toString()
-                        })
-                    }
-                )
-            }
+            binding.linearLayoutApprovalFlowDetail.addView(
+                createApprovalFlowDetailView(binding.linearLayoutApprovalFlowDetail, it)
+            )
         }
     }
+
+    private fun createApprovalFlowDetailView(
+        parent: ViewGroup,
+        approvalFlowDetail: ApprovalFlowDetail
+    ): View {
+        val binding = ModelApprovalFlowDetailLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
+        binding.textViewApprovalFlowDetailId.text = approvalFlowDetail.id.toString()
+        binding.textViewApprovalFlowDetailFlowNo.text = approvalFlowDetail.flowNo.toString()
+        binding.textViewApprovalFlowDetailAuditRemark.text = approvalFlowDetail.auditRemark.toString()
+        binding.textViewApprovalFlowDetailAuditStatus.text =
+            approvalFlowDetail.auditStatus!!.chinese.toString()
+        binding.textViewApprovalFlowDetailAuditTime.text = approvalFlowDetail.auditTime.toString()
+        binding.textViewApprovalFlowDetailAuditUserId.text = approvalFlowDetail.auditUserId.toString()
+
+        return binding.root
+    }
+
 
     private fun initAppliedCourses(flowNo: String) {
         // 检查服务响应
