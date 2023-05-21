@@ -22,7 +22,7 @@
             android:text="审批流编号">
         </TextView>
         <TextView
-            android:id="@+id/flow_no"
+            android:id="@+id/text_view_approval_detail_flow_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -42,7 +42,7 @@
             android:text="申请人学号/工号">
         </TextView>
         <TextView
-            android:id="@+id/appliant_id"
+            android:id="@+id/text_view_approval_detail_applicant_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -63,7 +63,28 @@
             android:text="申请人姓名">
         </TextView>
         <TextView
-            android:id="@+id/appliant_name"
+            android:id="@+id/text_view_approval_detail_applicant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="end"
+            >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="标题">
+        </TextView>
+        <TextView
+            android:id="@+id/text_view_approval_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -84,7 +105,7 @@
             android:text="申请时间">
         </TextView>
         <TextView
-            android:id="@+id/add_time"
+            android:id="@+id/text_view_approval_detail_add_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -105,7 +126,7 @@
             android:text="当前审批状态">
         </TextView>
         <TextView
-            android:id="@+id/approval_status"
+            android:id="@+id/text_view_approval_detail_approval_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -126,7 +147,7 @@
             android:text="申请人提出的课程">
         </TextView>
         <TextView
-            android:id="@+id/course_code_and_name"
+            android:id="@+id/text_view_approval_detail_course_code_and_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"

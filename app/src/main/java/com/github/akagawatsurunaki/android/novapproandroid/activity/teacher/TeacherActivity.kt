@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
+import com.github.akagawatsurunaki.android.novapproandroid.constant.Constant
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApplicationItemLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.TeacherLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.ApplicationItem
@@ -16,7 +17,7 @@ import java.util.Locale
 
 class TeacherActivity : ComponentActivity() {
 
-    val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒", Locale.getDefault())
+
 
     private lateinit var binding: TeacherLayoutBinding
 
@@ -75,7 +76,7 @@ class TeacherActivity : ComponentActivity() {
         binding.textViewApplicationApplicant.text = applicationItem.applicantName.toString()
         binding.textViewApplicationApprover.text = applicationItem.approverName.toString()
         binding.textViewApplicationAddTime.text =
-            applicationItem.addTime?.let { simpleDateFormat.format(it) }
+            applicationItem.addTime?.let { Constant.simpleDateFormat.format(it) }
         binding.textViewApplicationApproStatus.text =
             applicationItem.approvalStatus?.chinese.toString()
 

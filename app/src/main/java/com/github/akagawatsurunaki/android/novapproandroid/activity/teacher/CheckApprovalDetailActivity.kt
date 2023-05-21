@@ -3,9 +3,12 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.teacher
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.github.akagawatsurunaki.android.novapproandroid.constant.Constant
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CheckApprovalDetailLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.model.CourseApplicationItemDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 class CheckApprovalDetailActivity : ComponentActivity() {
 
@@ -18,32 +21,39 @@ class CheckApprovalDetailActivity : ComponentActivity() {
         // 设置布局
         setContentView(binding.root)
 
-        val flowNo = intent.getStringExtra("flowNo")
-        val loginUserId = intent.getStringExtra("loginUserId")
+        val flowNo = intent.getStringExtra("flowNo") ?: ""
+        val loginUserId = intent.getIntExtra("loginUserId", 0)
 
-        flowNo?.let {
-            loginUserId?.let {
-                val getCourseApplicationItemDetailServiceResult =
-                    ApprovalService.getCourseApplicationItemDetail(flowNo, loginUserId)
+        val getCourseApplicationItemDetailServiceResult =
+            ApprovalService.getCourseApplicationItemDetail(flowNo, loginUserId.toString())
 
-                if (getCourseApplicationItemDetailServiceResult.first.messageLevel != Level.SUCCESS) {
-                    Toast.makeText(
-                        this,
-                        getCourseApplicationItemDetailServiceResult.first.message,
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                binding.buttonApprovalAgree.setOnClickListener {
-                    callService(flowNo, true)
-                }
-
-                binding.buttonApprovalRefuse.setOnClickListener {
-                    callService(flowNo, false)
-                }
-
-            }
+        if (ServiceResultUtil.isFailed(this, getCourseApplicationItemDetailServiceResult.first)) {
+            finish()
         }
+        getCourseApplicationItemDetailServiceResult.second?.let { initCourseApplicationItemDetailView(it) }
+        binding.buttonApprovalAgree.setOnClickListener {
+            callService(flowNo, true)
+        }
+
+        binding.buttonApprovalRefuse.setOnClickListener {
+            callService(flowNo, false)
+        }
+    }
+
+    private fun initCourseApplicationItemDetailView(courseApplicationItemDetail: CourseApplicationItemDetail) {
+        binding.textViewApprovalDetailFlowNo.text = courseApplicationItemDetail.flowNo
+        binding.textViewApprovalDetailAddTime.text = courseApplicationItemDetail.addTime?.let {
+            Constant.simpleDateFormat.format(
+                it
+            )
+        }
+        binding.textViewApprovalDetailApplicantId.text = courseApplicationItemDetail.applicantId.toString()
+        binding.textViewApprovalDetailApplicantName.text = courseApplicationItemDetail.applicantName.toString()
+        binding.textViewApprovalDetailCourseCodeAndName.text = courseApplicationItemDetail.applCourses?.run {
+            get(0).code + " | " + get(0).name
+        } ?: ""
+        binding.textViewApprovalDetailTitle.text = courseApplicationItemDetail.title.toString()
+        binding.textViewApprovalDetailApprovalStatus.text = courseApplicationItemDetail.approStatus?.chinese.toString()
     }
 
     private fun callService(flowNo: String, isAgree: Boolean) {
@@ -53,9 +63,8 @@ class CheckApprovalDetailActivity : ComponentActivity() {
             remark = binding.editTextApprovalRemark.text.toString(),
             confirm = if (isAgree) "同意审批" else "驳回审批"
         )
-        if (saveApprovalResultServiceResult.first.messageLevel != Level.SUCCESS) {
-            Toast.makeText(this, saveApprovalResultServiceResult.first.message, Toast.LENGTH_LONG)
-                .show()
+        if (ServiceResultUtil.isSuccess(this, saveApprovalResultServiceResult.first)) {
+            finish()
         }
     }
 
