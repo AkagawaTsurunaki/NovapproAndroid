@@ -8,13 +8,13 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CourseApplicationDetailLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApprovalFlowDetailLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.ApprovalFlowDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseApplicationDetailService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 class CourseApplicationDetailActivity : ComponentActivity() {
 
@@ -41,7 +41,10 @@ class CourseApplicationDetailActivity : ComponentActivity() {
 
             // 绑定按钮事件
             binding.buttonApprovalConfirm.setOnClickListener { _ ->
-                ApprovalService.tryFinishApprovalFlow(it, "确定")
+                val tryFinishApprovalFlow = ApprovalService.tryFinishApprovalFlow(it, "确定")
+                if (ServiceResultUtil.isSuccess(this, tryFinishApprovalFlow)) {
+                    finish()
+                }
             }
         }
     }
@@ -81,11 +84,13 @@ class CourseApplicationDetailActivity : ComponentActivity() {
 
         binding.textViewApprovalFlowDetailId.text = approvalFlowDetail.id.toString()
         binding.textViewApprovalFlowDetailFlowNo.text = approvalFlowDetail.flowNo.toString()
-        binding.textViewApprovalFlowDetailAuditRemark.text = approvalFlowDetail.auditRemark.toString()
+        binding.textViewApprovalFlowDetailAuditRemark.text =
+            approvalFlowDetail.auditRemark.toString()
         binding.textViewApprovalFlowDetailAuditStatus.text =
             approvalFlowDetail.auditStatus!!.chinese.toString()
         binding.textViewApprovalFlowDetailAuditTime.text = approvalFlowDetail.auditTime.toString()
-        binding.textViewApprovalFlowDetailAuditUserId.text = approvalFlowDetail.auditUserId.toString()
+        binding.textViewApprovalFlowDetailAuditUserId.text =
+            approvalFlowDetail.auditUserId.toString()
 
         return binding.root
     }
