@@ -45,7 +45,7 @@ class CheckCourseApplicationsActivity : ComponentActivity() {
                 TableRow(this).apply {
                     val index = courseApplications.indexOf(it)
                     addView(TextView(this@CheckCourseApplicationsActivity).apply {
-                        text = it.flowNo?.substring(20) +"  "
+                        text =  "..." +it.flowNo?.substring(23) +"  "
                     })
                     addView(TextView(this@CheckCourseApplicationsActivity).apply {
                         text = it.addUserId.toString()

@@ -1,8 +1,10 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.stu
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -13,10 +15,11 @@ import android.provider.MediaStore
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApplyCourseLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
-import com.github.akagawatsurunaki.android.novapproandroid.model.ServiceMessage
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
@@ -67,10 +70,8 @@ class ApplyCourseActivity : ComponentActivity() {
                 "com.github.akagawatsurunaki.android.novapproandroid.fileProvider",
                 outputImage
             )
-            // 启动相机程序
-            val intent = Intent("android.media.action.IMAGE_CAPTURE")
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-            startActivityForResult(intent, takePhoto)
+            // 启动相机程序, 这里会进行索取权限
+            requestCameraPermission()
         }
 
         // 创建课程申请按钮事件绑定
@@ -144,5 +145,49 @@ class ApplyCourseActivity : ComponentActivity() {
         bitmap.recycle() // 将不再需要的Bitmap对象回收
         return rotatedBitmap
     }
+
+    private val CAMERA_PERMISSION_REQUEST_CODE = 100
+
+    private fun requestCameraPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // 如果没有相机权限，弹出权限申请对话框
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            // 如果已经有相机权限，直接打开相机
+            openCamera()
+        }
+    }
+
+    private fun openCamera() {
+        val intent = Intent("android.media.action.IMAGE_CAPTURE")
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+        startActivityForResult(intent, takePhoto)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 用户授予了相机权限，可以打开相机了
+                openCamera()
+            } else {
+                // 用户拒绝了相机权限，可以弹出提示框或做其他处理
+                Toast.makeText(this, "没有相机权限，无法打开相机", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
 }

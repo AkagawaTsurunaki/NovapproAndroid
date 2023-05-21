@@ -29,7 +29,12 @@ class CourseApplicationDetailActivity : ComponentActivity() {
 
         val flowNo = intent.getStringExtra("flowNo")
 
-        flowNo?.let {
+        if (flowNo == null) {
+            finish()
+            return
+        }
+
+        flowNo.let {
             // 初始化界面
             initAppliedCourses(it)
             initApprovalFlowDetails(it)

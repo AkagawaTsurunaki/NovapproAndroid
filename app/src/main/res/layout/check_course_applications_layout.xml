@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="我的课程申请">
+
+    </Toolbar>
+
     <TableLayout
         android:id="@+id/table_layout_course_application"
         android:layout_width="match_parent"

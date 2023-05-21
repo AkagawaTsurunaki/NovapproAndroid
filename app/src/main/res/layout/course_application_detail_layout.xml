@@ -34,9 +34,8 @@
     <Button
         android:id="@+id/button_approval_confirm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:text="完成申请">
     </Button>
-
 
 </LinearLayout>
