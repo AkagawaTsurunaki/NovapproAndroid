@@ -1,5 +1,6 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.stu
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TableRow
@@ -9,10 +10,15 @@ import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CheckCourseApplicationsLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CheckCourseApplicationsActivity : ComponentActivity() {
 
+    private val dateFormat = SimpleDateFormat("M月d日", Locale.CHINA)
+
     private lateinit var binding: CheckCourseApplicationsLayoutBinding
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 初始化绑定对象
@@ -39,13 +45,13 @@ class CheckCourseApplicationsActivity : ComponentActivity() {
                 TableRow(this).apply {
                     val index = courseApplications.indexOf(it)
                     addView(TextView(this@CheckCourseApplicationsActivity).apply {
-                        text = it.flowNo
+                        text = it.flowNo?.substring(20) +"  "
                     })
                     addView(TextView(this@CheckCourseApplicationsActivity).apply {
                         text = it.addUserId.toString()
                     })
                     addView(TextView(this@CheckCourseApplicationsActivity).apply {
-                        text = it.addTime.toString()
+                        text = "   " + dateFormat.format(it.addTime!!)
                     })
                     addView(TextView(this@CheckCourseApplicationsActivity).apply {
                         text = it.approCourses
@@ -64,6 +70,6 @@ class CheckCourseApplicationsActivity : ComponentActivity() {
     private fun toActivity(flowNo: String?) {
         startActivity(
             Intent(this, CourseApplicationDetailActivity::class.java)
-                .apply {putExtra("flowNo", flowNo)})
+                .apply { putExtra("flowNo", flowNo) })
     }
 }
