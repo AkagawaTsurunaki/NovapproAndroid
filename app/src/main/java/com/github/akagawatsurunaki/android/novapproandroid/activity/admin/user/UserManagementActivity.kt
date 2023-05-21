@@ -28,6 +28,11 @@ class UserManagementActivity : ComponentActivity() {
     }
 
     private fun initTableLayout() {
+
+        // 先移除所有的View组件
+        binding.tableLayoutAllUsers.removeAllViews()
+
+
         val getAllUsersServiceResult = UserManageService.getAllUsers()
 
         if (getAllUsersServiceResult.first.messageLevel != Level.SUCCESS) {
@@ -36,8 +41,7 @@ class UserManagementActivity : ComponentActivity() {
 
         val allUsers = getAllUsersServiceResult.second ?: emptyList()
 
-        // 先移除所有的View组件
-        binding.tableLayoutAllUsers.removeAllViews()
+
 
         allUsers.forEach {
             binding.tableLayoutAllUsers.addView(
