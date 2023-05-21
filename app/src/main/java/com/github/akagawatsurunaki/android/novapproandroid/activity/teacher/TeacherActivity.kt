@@ -2,15 +2,21 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.teacher
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TableRow
-import android.widget.TextView
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.ComponentActivity
+import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApplicationItemLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.TeacherLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.model.Level
+import com.github.akagawatsurunaki.android.novapproandroid.model.ApplicationItem
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
+import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class TeacherActivity : ComponentActivity() {
+
+    val simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒", Locale.getDefault())
 
     private lateinit var binding: TeacherLayoutBinding
 
@@ -23,50 +29,7 @@ class TeacherActivity : ComponentActivity() {
 
         val loginUserId = intent.getIntExtra("loginUserId", 0)
 
-        loginUserId?.let {
-            val getApplicationItemsServiceResult = ApprovalService.getApplicationItems(loginUserId.toString())
-
-            if (getApplicationItemsServiceResult.first.messageLevel != Level.SUCCESS) {
-                Toast.makeText(
-                    this,
-                    getApplicationItemsServiceResult.first.message,
-                    Toast.LENGTH_LONG
-                ).show()
-                return@let
-            }
-
-            val applicationItems = getApplicationItemsServiceResult.second ?: emptyList()
-            applicationItems.forEach {
-                binding.tableLayoutApprovalItemTitle.addView(
-                    TableRow(this).apply {
-
-                        addView(TextView(this@TeacherActivity).apply {
-                            text = it.flowNo
-                        })
-
-                        addView(TextView(this@TeacherActivity).apply {
-                            text = it.title
-                        })
-
-                        addView(TextView(this@TeacherActivity).apply {
-                            text = it.approverName
-                        })
-
-                        addView(TextView(this@TeacherActivity).apply {
-                            text = it.addTime.toString()
-                        })
-
-                        addView(TextView(this@TeacherActivity).apply {
-                            text = it.approvalStatus!!.chinese
-                        })
-
-                        setOnClickListener { _ ->
-                            toActivity(it.flowNo!!)
-                        }
-                    }
-                )
-            }
-        }
+        initApplicationItemView(loginUserId)
     }
 
     private fun toActivity(flowNo: String) {
@@ -74,6 +37,49 @@ class TeacherActivity : ComponentActivity() {
             putExtra("flowNo", flowNo)
         }
         startActivity(intent)
+    }
+
+    private fun initApplicationItemView(loginUserId: Int) {
+        val getApplicationItemsServiceResult =
+            ApprovalService.getApplicationItems(loginUserId.toString())
+
+        if (ServiceResultUtil.isFailed(this, getApplicationItemsServiceResult.first)) {
+            return
+        }
+
+        val applicationItems = getApplicationItemsServiceResult.second ?: emptyList()
+
+        applicationItems.forEach {
+            binding.linearLayoutApplicationItem.addView(
+                createApplicationItemView(binding.linearLayoutApplicationItem, it).apply {
+                    setOnClickListener { _ ->
+                        toActivity(it.flowNo!!)
+                    }
+                }
+            )
+        }
+    }
+
+    private fun createApplicationItemView(
+        parent: ViewGroup,
+        applicationItem: ApplicationItem
+    ): View {
+        val binding = ModelApplicationItemLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
+        binding.textViewApplicationItemFlowNo.text = applicationItem.flowNo.toString()
+        binding.textViewApplicationItemTitle.text = applicationItem.title.toString()
+        binding.textViewApplicationApplicant.text = applicationItem.applicantName.toString()
+        binding.textViewApplicationApprover.text = applicationItem.approverName.toString()
+        binding.textViewApplicationAddTime.text =
+            applicationItem.addTime?.let { simpleDateFormat.format(it) }
+        binding.textViewApplicationApproStatus.text =
+            applicationItem.approvalStatus?.chinese.toString()
+
+        return binding.root
     }
 
 }

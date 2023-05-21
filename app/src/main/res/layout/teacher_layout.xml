@@ -11,13 +11,13 @@
 
     </Toolbar>
 
-    <TableLayout
-        android:id="@+id/table_layout_approval_item_title"
+    <LinearLayout
+        android:id="@+id/linear_layout_application_item"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/model_application_item_layout">
 
-        </include>
-    </TableLayout>
+    </LinearLayout>
+
 </LinearLayout>
