@@ -21,15 +21,22 @@ class TeacherActivity : ComponentActivity() {
 
     private lateinit var binding: TeacherLayoutBinding
 
+    private var loginUserId: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 初始化绑定对象
         binding = TeacherLayoutBinding.inflate(layoutInflater)
         // 设置布局
         setContentView(binding.root)
+        // 获取登录用户ID
+        loginUserId = intent.getIntExtra("loginUserId", 0)
 
-        val loginUserId = intent.getIntExtra("loginUserId", 0)
+        initApplicationItemView(loginUserId)
+    }
 
+    override fun onRestart() {
+        super.onRestart()
         initApplicationItemView(loginUserId)
     }
 
@@ -41,6 +48,8 @@ class TeacherActivity : ComponentActivity() {
     }
 
     private fun initApplicationItemView(loginUserId: Int) {
+        binding.linearLayoutApplicationItem.removeAllViews()
+
         val getApplicationItemsServiceResult =
             ApprovalService.getApplicationItems(loginUserId.toString())
 
@@ -49,6 +58,9 @@ class TeacherActivity : ComponentActivity() {
         }
 
         val applicationItems = getApplicationItemsServiceResult.second ?: emptyList()
+
+        // 移除所有的内部组件
+
 
         applicationItems.forEach {
             binding.linearLayoutApplicationItem.addView(

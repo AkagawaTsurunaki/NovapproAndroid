@@ -37,7 +37,7 @@ class UserManagementActivity : ComponentActivity() {
         val allUsers = getAllUsersServiceResult.second ?: emptyList()
 
         // 先移除所有的View组件
-        binding.tableLayoutAllUsers.removeAllViewsInLayout()
+        binding.tableLayoutAllUsers.removeAllViews()
 
         allUsers.forEach {
             binding.tableLayoutAllUsers.addView(
