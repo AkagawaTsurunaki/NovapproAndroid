@@ -60,6 +60,7 @@ class ModifyUserActivity : ComponentActivity() {
                     // 处理取消按钮点击事件
                     dialog.dismiss()
                 }
+                show()
             }
         }
 
@@ -73,11 +74,13 @@ class ModifyUserActivity : ComponentActivity() {
                     val serviceResult = UserManageService.deleteUser(user.id.toString())
                     ServiceResultUtil.show(this@ModifyUserActivity, serviceResult.first)
                     dialog.dismiss()
+                    finish()
                 }
                 setNegativeButton("取消") { dialog, _ ->
                     // 处理取消按钮点击事件
                     dialog.dismiss()
                 }
+                show()
             }
         }
     }
