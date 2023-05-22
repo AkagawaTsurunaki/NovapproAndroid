@@ -27,7 +27,11 @@ object UserManageService {
         return ResponseUtil.getServiceResult<User>(
             servletValue = "/android/userManageService/updateUser",
             // TODO(极容易引发错误)
-            mapOf("user" to JSONObject.toJSONString(user))
+            mapOf(
+                "id" to user.id.toString(),
+                "username" to user.username.toString(),
+                "type" to user.type.toString()
+            )
         )
     }
 

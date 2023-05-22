@@ -107,7 +107,7 @@ class ModifyUserActivity : ComponentActivity() {
     private fun updateUser(originUser: User) {
         val userId = binding.textViewUserId.text.toString().toInt()
         val username = binding.editTextUserUsername.text.toString()
-        val userType = enumValues<UserType>()[binding.radioGroupUserType.checkedRadioButtonId]
+        val userType = enumValues<UserType>()[binding.radioGroupUserType.checkedRadioButtonId - 1]
 
         val newUser = User(userId, username, null, userType)
 
@@ -118,8 +118,8 @@ class ModifyUserActivity : ComponentActivity() {
         val updateUserServiceResult =
             UserManageService.updateUser(newUser)
 
-        if (updateUserServiceResult.first.messageLevel != Level.SUCCESS) {
-            Toast.makeText(this, updateUserServiceResult.first.message, Toast.LENGTH_LONG).show()
+        if (ServiceResultUtil.isSuccess(this, updateUserServiceResult.first)) {
+            finish()
         }
     }
 }
