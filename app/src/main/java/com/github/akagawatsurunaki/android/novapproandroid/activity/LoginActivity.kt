@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.AdminActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.stu.StudentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.teacher.TeacherActivity
@@ -18,7 +19,7 @@ import com.github.akagawatsurunaki.android.novapproandroid.service.LoginService
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 
-class LoginActivity : ComponentActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: LoginLayoutBinding
     private val TAG = "登录模块"

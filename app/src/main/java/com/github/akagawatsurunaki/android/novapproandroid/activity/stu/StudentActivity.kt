@@ -6,12 +6,12 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.StudentLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.util.MenuUtil
 
-class StudentActivity : ComponentActivity() {
+class StudentActivity : AppCompatActivity() {
 
     private val functionalityList = listOf("我要申请课程", "查看我的申请")
 
@@ -42,7 +42,6 @@ class StudentActivity : ComponentActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // TODO(检查这里是否会有bug，尤其是super)
-        super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.navigation_menu, menu)
         return true
     }

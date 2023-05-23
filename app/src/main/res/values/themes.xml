@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.NovapproAndroid" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.NovapproAndroid" parent="Theme.AppCompat.DayNight">
+        <!-- 在这里设置你的应用程序主题 -->
+    </style>
 </resources>
