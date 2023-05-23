@@ -10,10 +10,11 @@ class MyDbHelper (private val context: Context, name: String, version: Int) :
     SQLiteOpenHelper(context, name, null, version) {
 
     private val TAG = "MyDbHelper"
-    private val createUserInfo = "create table UserInfo (" +
-            " id userId primary key autoincrement," +
+    private val createUserInfo = "create table user_info (" +
+            "userId integer primary key," +
             "username text," +
             "usertype text," +
+            "autoLogin text,"+
             "theme text)"
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(createUserInfo)
