@@ -41,4 +41,5 @@
     <string name="approval_flow_add_time">申请发起时间</string>
     <string name="approval_flow_add_user_id">申请人ID</string>
     <string name="approval_flow_add_remark">申请原因</string>
+    <string name="title_activity_my">MyActivity</string>
 </resources>
