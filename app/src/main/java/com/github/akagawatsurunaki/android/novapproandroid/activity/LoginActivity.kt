@@ -2,6 +2,7 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.admin.AdminActivity
@@ -20,6 +21,7 @@ import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUti
 class LoginActivity : ComponentActivity() {
 
     private lateinit var binding: LoginLayoutBinding
+    private val TAG = "登录模块"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,29 +32,33 @@ class LoginActivity : ComponentActivity() {
 
         // 获取ActionCode
 
-        when (intent.getIntExtra("actionCode", ActionCode.INVALID_ACTION)) {
-            ActionCode.INVALID_ACTION -> {
-                Toast.makeText(this, "无效动作", Toast.LENGTH_SHORT).show()
+        when (intent.getIntExtra("actionCode", ActionCode.NO_ACTION)) {
+            ActionCode.NO_ACTION -> {
+                // 创建数据库
+                val dbHelper = MyDbHelper(this, "novappro.db", Constant.DATABASE_VERSION)
+
+                dbHelper.writableDatabase
+
+
+
+                // 为按钮绑定事件
+                binding.loginLayoutButtonLogin.setOnClickListener {
+//             login()
+                    testLogin()
+                }
                 return
             }
 
             ActionCode.LOGOUT -> {
                 //
             }
+
+            ActionCode.INVALID_ACTION -> {
+                Log.w(TAG, "onCreate: ")
+            }
         }
 
-        // 创建数据库
-        val dbHelper = MyDbHelper(this, "novappro.db", Constant.DATABASE_VERSION)
 
-        dbHelper.writableDatabase
-
-
-
-        // 为按钮绑定事件
-        binding.loginLayoutButtonLogin.setOnClickListener {
-//             login()
-            testLogin()
-        }
     }
 
     private fun logout() {
@@ -63,7 +69,7 @@ class LoginActivity : ComponentActivity() {
 
     private fun testLogin() {
         // 登录
-        val loginServiceResult = LoginService.login("20210009", "1234567890")
+        val loginServiceResult = LoginService.login("20210002", "1234567890")
         // 获取User对象
         val loginUser = loginServiceResult.second
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
