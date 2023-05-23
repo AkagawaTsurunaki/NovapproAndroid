@@ -3,10 +3,13 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.stu
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.activity.ComponentActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.StudentLayoutBinding
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuUtil
 
 class StudentActivity : ComponentActivity() {
 
@@ -28,10 +31,26 @@ class StudentActivity : ComponentActivity() {
             when (functionalityList[position]) {
                 "我要申请课程" -> toApplyCourseActivity()
                 "查看我的申请" -> toCheckCourseApplicationActivity()
-                else -> Log.e(StudentActivity::class.java.name, "onCreate: 这是一个不可能被点击到的位置", )
+                else -> Log.e(
+                    StudentActivity::class.java.name,
+                    "onCreate: 这是一个不可能被点击到的位置",
+                )
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // TODO(检查这里是否会有bug，尤其是super)
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // TODO(检查这里是否会有bug，尤其是super)
+        MenuUtil.check(this, item)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun toApplyCourseActivity() {
