@@ -3,18 +3,23 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.fastjson2.JSONObject
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.UserManagementLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserManageService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
-class UserManagementActivity : ComponentActivity() {
+class UserManagementActivity : AppCompatActivity() {
 
     private lateinit var binding: UserManagementLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +33,15 @@ class UserManagementActivity : ComponentActivity() {
             toAddUserActivity()
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
+    }
     @SuppressLint("SetTextI18n")
     private fun initTableLayout() {
 

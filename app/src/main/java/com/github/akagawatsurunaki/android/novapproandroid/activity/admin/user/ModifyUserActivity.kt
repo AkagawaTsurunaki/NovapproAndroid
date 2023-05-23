@@ -2,18 +2,23 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.user
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.fastjson2.JSONObject
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModifyUserLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
 import com.github.akagawatsurunaki.android.novapproandroid.service.manage.UserManageService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
-class ModifyUserActivity : ComponentActivity() {
+class ModifyUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ModifyUserLayoutBinding
 
@@ -83,6 +88,16 @@ class ModifyUserActivity : ComponentActivity() {
                 show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun init(user: User) {

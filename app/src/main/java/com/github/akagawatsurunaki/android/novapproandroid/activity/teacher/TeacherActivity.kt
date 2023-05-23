@@ -3,19 +3,24 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.teacher
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.constant.Constant
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApplicationItemLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.TeacherLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.ApplicationItem
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TeacherActivity : ComponentActivity() {
+class TeacherActivity : AppCompatActivity() {
 
 
 
@@ -34,6 +39,17 @@ class TeacherActivity : ComponentActivity() {
 
         initApplicationItemView(loginUserId)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
+    }
+
 
     override fun onRestart() {
         super.onRestart()

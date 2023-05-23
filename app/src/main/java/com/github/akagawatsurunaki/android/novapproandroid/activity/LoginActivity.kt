@@ -30,47 +30,21 @@ class LoginActivity : AppCompatActivity() {
         binding = LoginLayoutBinding.inflate(layoutInflater)
         // 设置布局
         setContentView(binding.root)
+        // 创建数据库
+        val dbHelper = MyDbHelper(this, "novappro.db", Constant.DATABASE_VERSION)
+        dbHelper.writableDatabase
 
-        // 获取ActionCode
-
-        when (intent.getIntExtra("actionCode", ActionCode.NO_ACTION)) {
-            ActionCode.NO_ACTION -> {
-                // 创建数据库
-                val dbHelper = MyDbHelper(this, "novappro.db", Constant.DATABASE_VERSION)
-
-                dbHelper.writableDatabase
-
-
-
-                // 为按钮绑定事件
-                binding.loginLayoutButtonLogin.setOnClickListener {
+        // 为按钮绑定事件
+        binding.loginLayoutButtonLogin.setOnClickListener {
 //             login()
-                    testLogin()
-                }
-                return
-            }
-
-            ActionCode.LOGOUT -> {
-                //
-            }
-
-            ActionCode.INVALID_ACTION -> {
-                Log.w(TAG, "onCreate: ")
-            }
+            testLogin()
         }
 
-
-    }
-
-    private fun logout() {
-        binding.loginLayoutEditTextUserId.setText("")
-        binding.loginLayoutEditTextPassword.setText("")
-        // TODO: 数据库清除用户登录数据
     }
 
     private fun testLogin() {
         // 登录
-        val loginServiceResult = LoginService.login("20210002", "1234567890")
+        val loginServiceResult = LoginService.login("20210004", "1234567890")
         // 获取User对象
         val loginUser = loginServiceResult.second
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {

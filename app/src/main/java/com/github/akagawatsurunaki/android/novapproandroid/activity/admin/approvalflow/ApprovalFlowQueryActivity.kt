@@ -1,16 +1,20 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.approvalflow
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApprovalFlowQueryLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 
-class ApprovalFlowQueryActivity : ComponentActivity() {
+class ApprovalFlowQueryActivity : AppCompatActivity() {
 
     private lateinit var binding: ApprovalFlowQueryLayoutBinding
 
@@ -67,5 +71,15 @@ class ApprovalFlowQueryActivity : ComponentActivity() {
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,15 +1,20 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.admin.course
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.AddCourseLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Course
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import java.math.BigDecimal
 
-class AddCourseActivity : ComponentActivity() {
+class AddCourseActivity : AppCompatActivity() {
 
     private lateinit var binding: AddCourseLayoutBinding
 
@@ -27,6 +32,16 @@ class AddCourseActivity : ComponentActivity() {
         binding.buttonCancelAddCourse.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun addCourse() {

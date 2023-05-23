@@ -7,7 +7,7 @@
     <string name="login_layout_button_login_text">登录</string>
     <string name="title_activity_student">NOVAPPRO 学生端</string>
     <string name="title_activity_admin">AdminActivity</string>
-    <string name="title_activity_teacher">TeacherActivity</string>
+    <string name="title_activity_teacher">NOVAPPRO 教师端</string>
     <string name="title_activity_apply_course">学生申请课程</string>
     <string name="title_activity_check_course_application">我的课程申请</string>
     <string name="apply_course_layout_button_take_photo">拍照</string>

@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:title="@string/your_approvals">
-
-    </Toolbar>
-
     <LinearLayout
         android:id="@+id/linear_layout_application_item"
         android:orientation="vertical"

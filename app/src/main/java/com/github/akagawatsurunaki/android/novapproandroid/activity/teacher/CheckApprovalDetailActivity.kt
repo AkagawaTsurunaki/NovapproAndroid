@@ -1,16 +1,21 @@
 package com.github.akagawatsurunaki.android.novapproandroid.activity.teacher
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.constant.Constant
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CheckApprovalDetailLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.CourseApplicationItemDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
-class CheckApprovalDetailActivity : ComponentActivity() {
+class CheckApprovalDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: CheckApprovalDetailLayoutBinding
 
@@ -38,6 +43,16 @@ class CheckApprovalDetailActivity : ComponentActivity() {
         binding.buttonApprovalRefuse.setOnClickListener {
             callService(flowNo, false)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initCourseApplicationItemDetailView(courseApplicationItemDetail: CourseApplicationItemDetail) {
