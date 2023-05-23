@@ -14,8 +14,7 @@ class MyDbHelper (private val context: Context, name: String, version: Int) :
             "userId integer primary key," +
             "username text," +
             "usertype text," +
-            "autoLogin text,"+
-            "theme text)"
+            "autoLogin text)"
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(createUserInfo)
         Log.i(TAG, "数据库初始化完成")

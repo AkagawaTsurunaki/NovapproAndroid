@@ -15,7 +15,9 @@ import com.github.akagawatsurunaki.android.novapproandroid.databinding.LoginLayo
 import com.github.akagawatsurunaki.android.novapproandroid.enumeration.UserType
 import com.github.akagawatsurunaki.android.novapproandroid.helper.MyDbHelper
 import com.github.akagawatsurunaki.android.novapproandroid.model.User
+import com.github.akagawatsurunaki.android.novapproandroid.model.UserInfo
 import com.github.akagawatsurunaki.android.novapproandroid.service.LoginService
+import com.github.akagawatsurunaki.android.novapproandroid.util.SQLiteUtil
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
 
@@ -42,6 +44,18 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun saveUserInfo(user: User) {
+        SQLiteUtil.insert(
+            this,
+            userInfo = UserInfo(
+                userId = user.id!!,
+                username = user.username!!,
+                userType = user.type!!,
+                isAutoLogin = true
+            )
+        )
+    }
+
     private fun testLogin() {
         // 登录
         val loginServiceResult = LoginService.login("20210004", "1234567890")
@@ -49,7 +63,8 @@ class LoginActivity : AppCompatActivity() {
         val loginUser = loginServiceResult.second
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
             // 转到对应的界面
-            toActivity(loginUser!!)
+            saveUserInfo(loginUser!!)
+            toActivity(loginUser)
         }
     }
 
@@ -62,7 +77,8 @@ class LoginActivity : AppCompatActivity() {
         val loginUser = loginServiceResult.second
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
             // 转到对应的界面
-            toActivity(loginUser!!)
+            saveUserInfo(loginUser!!)
+            toActivity(loginUser)
         }
     }
 

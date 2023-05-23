@@ -11,7 +11,6 @@ import java.lang.Exception
 
 object SQLiteUtil {
 
-
     fun insert(context: Context, tableName: String = "user_info", userInfo: UserInfo) {
         try {
             val dbHelper = MyDbHelper(context, "novappro.db", Constant.DATABASE_VERSION)
@@ -21,7 +20,6 @@ object SQLiteUtil {
                 put("user_id", userInfo.userId)
                 put("username", userInfo.username)
                 put("user_type", userInfo.userType.name)
-                put("theme", userInfo.theme.name)
                 put("is_auto_login", userInfo.isAutoLogin)
             }
             if (db.insert(tableName, null, userInfoEntity) == -1L) {
@@ -42,7 +40,7 @@ object SQLiteUtil {
             val dbHelper = MyDbHelper(context, "novappro.db", Constant.DATABASE_VERSION)
             val db = dbHelper.writableDatabase
             val cursor =
-                db.rawQuery("select * from user_info where user_id = ?;", arrayOf(userIdStr))
+                db.rawQuery("select * from user_info;", arrayOf(userIdStr))
 
             var index = cursor.getColumnIndex("user_id")
             val userId = cursor.getInt(index)
@@ -50,8 +48,6 @@ object SQLiteUtil {
             val username = cursor.getString(index)
             index = cursor.getColumnIndex("user_type")
             val userType = UserType.valueOf(cursor.getString(index))
-            index = cursor.getColumnIndex("theme")
-            val theme = UserInfo.Theme.valueOf(cursor.getString(index))
             index = cursor.getColumnIndex("is_auto_login")
             val isAutoLogin = cursor.getString(index) == "true"
 
@@ -61,7 +57,6 @@ object SQLiteUtil {
                 userId = userId,
                 username = username,
                 userType = userType,
-                theme = theme,
                 isAutoLogin = isAutoLogin
             )
         } catch (e: Exception) {
