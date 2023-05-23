@@ -27,7 +27,7 @@ object ResponseUtil {
         params: Map<String, String>,
         fileParams: Map<String, File>
     ): ServiceMessage {
-        var result: ServiceMessage = defaultServiceMessage
+        var result: ServiceMessage
         runBlocking {
             withContext(Dispatchers.IO) {
                 val response = ConnUtil.sendPostRequest(servletValue, params, fileParams)

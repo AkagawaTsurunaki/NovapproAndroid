@@ -11,10 +11,9 @@ class MyDbHelper (private val context: Context, name: String, version: Int) :
 
     private val TAG = "MyDbHelper"
     private val createUserInfo = "create table user_info (" +
-            "userId integer primary key," +
+            "user_id integer primary key," +
             "username text," +
-            "usertype text," +
-            "autoLogin text)"
+            "user_type text)"
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(createUserInfo)
         Log.i(TAG, "数据库初始化完成")

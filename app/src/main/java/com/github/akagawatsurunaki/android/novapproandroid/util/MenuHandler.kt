@@ -8,17 +8,26 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.core.content.ContextCompat.startActivity
+import com.alibaba.fastjson2.JSON
+import com.alibaba.fastjson2.JSONObject
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.activity.LoginActivity
 import com.github.akagawatsurunaki.android.novapproandroid.activity.base.MyActivity
 import com.github.akagawatsurunaki.android.novapproandroid.config.ActionCode
+import com.github.akagawatsurunaki.android.novapproandroid.constant.Constant
 
 object MenuHandler {
 
     fun check(compatActivity: AppCompatActivity, item: MenuItem) {
         when (item.itemId) {
             R.id.menu_my -> {
-                startActivity(compatActivity, Intent(compatActivity, MyActivity::class.java), null)
+                val userInfo = SQLiteUtil.select(compatActivity, Constant.loginUserId.toString())
+
+                startActivity(compatActivity, Intent(compatActivity, MyActivity::class.java).apply {
+                    putExtra("loginUserId", Constant.loginUserId)
+                    putExtra("loginUserName", userInfo?.username)
+                    putExtra("loginUserType", userInfo?.userType)
+                }, null)
             }
 
             R.id.menu_change_theme -> {
@@ -28,10 +37,14 @@ object MenuHandler {
 
             R.id.menu_logout -> {
 
-                startActivity(compatActivity, Intent(compatActivity, LoginActivity::class.java).apply {
-                    putExtra("actionCode", ActionCode.LOGOUT)
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                }, null)
+                startActivity(
+                    compatActivity,
+                    Intent(compatActivity, LoginActivity::class.java).apply {
+                        putExtra("actionCode", ActionCode.LOGOUT)
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    },
+                    null
+                )
             }
         }
     }

@@ -45,15 +45,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUserInfo(user: User) {
-        SQLiteUtil.insert(
-            this,
-            userInfo = UserInfo(
-                userId = user.id!!,
-                username = user.username!!,
-                userType = user.type!!,
-                isAutoLogin = true
-            )
-        )
+        SQLiteUtil.insert(this, user = user)
     }
 
     private fun testLogin() {
@@ -64,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
             // 转到对应的界面
             saveUserInfo(loginUser!!)
+            Constant.loginUserId = loginUser.id ?: 0
             toActivity(loginUser)
         }
     }
@@ -78,8 +71,10 @@ class LoginActivity : AppCompatActivity() {
         if (ServiceResultUtil.isSuccess(this, loginServiceResult.first)) {
             // 转到对应的界面
             saveUserInfo(loginUser!!)
+            Constant.loginUserId = loginUser.id ?: 0
             toActivity(loginUser)
         }
+
     }
 
     private fun toActivity(user: User) {
@@ -88,7 +83,11 @@ class LoginActivity : AppCompatActivity() {
             UserType.LECTURE_TEACHER -> toTeacherActivity()
             UserType.SUPERVISOR_TEACHER -> toTeacherActivity()
             UserType.STUDENT -> toStudentActivity()
-        }.apply { putExtra("loginUserId", user.id) }
+        }.apply {
+            putExtra("loginUserId", user.id)
+            putExtra("loginUserName", user.username.toString())
+            putExtra("loginUserType", user.type?.chinese.toString())
+        }
         startActivity(intent)
     }
 
