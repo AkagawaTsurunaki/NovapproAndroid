@@ -12,25 +12,29 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ApplyCourseLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.ApplyCourseService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 import java.io.File
 
-class ApplyCourseActivity : ComponentActivity() {
+class ApplyCourseActivity : AppCompatActivity() {
     private val takePhoto = 1
     private lateinit var imageUri: Uri
     lateinit var outputImage: File
     private lateinit var binding: ApplyCourseLayoutBinding
-
+    private val CAMERA_PERMISSION_REQUEST_CODE = 100
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +127,16 @@ class ApplyCourseActivity : ComponentActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
         val exif = ExifInterface(outputImage.path)
         val orientation = exif.getAttributeInt(
@@ -146,7 +160,7 @@ class ApplyCourseActivity : ComponentActivity() {
         return rotatedBitmap
     }
 
-    private val CAMERA_PERMISSION_REQUEST_CODE = 100
+
 
     private fun requestCameraPermission() {
         if (ContextCompat.checkSelfPermission(

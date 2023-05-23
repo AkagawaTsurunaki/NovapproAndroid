@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Toolbar
-        android:id="@+id/student_layout_tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:title="@string/student_layout_tool_bar_title">
-    </Toolbar>
+<!--    <Toolbar-->
+<!--        android:id="@+id/student_layout_tool_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:title="@string/student_layout_tool_bar_title">-->
+<!--    </Toolbar>-->
 
     <ListView
         android:id="@+id/student_layout_list_view_functionality_list"

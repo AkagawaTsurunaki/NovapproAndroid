@@ -1,15 +1,14 @@
 <resources>
-    <string name="app_name">NovapproAndroid</string>
+    <string name="app_name">NOVAPPRO</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="login_layout_tool_bar_title">欢迎使用Novappro</string>
     <string name="login_layout_edit_text_user_id">请输入您的学号/工号</string>
     <string name="login_layout_edit_text_password">请输入您的密码</string>
     <string name="login_layout_button_login_text">登录</string>
-    <string name="title_activity_student">StudentActivity</string>
+    <string name="title_activity_student">NOVAPPRO > 学生端</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="title_activity_teacher">TeacherActivity</string>
-    <string name="student_layout_tool_bar_title">学生端</string>
-    <string name="title_activity_apply_course">ApplyCourseActivity</string>
+    <string name="title_activity_apply_course">NOVAPPRO > 学生端 > 学生申请课程</string>
     <string name="title_activity_check_course_application">CheckCourseApplicationActivity</string>
     <string name="apply_course_layout_button_take_photo">拍照</string>
     <string name="create_course_application">提交课程申请</string>
@@ -21,7 +20,7 @@
     <string name="online_contact_way">线上联系方式</string>
     <string name="comment">备注</string>
     <string name="your_approvals">您的审批</string>
-    <string name="title_activity_check_approval_detail">CheckApprovalDetailActivity</string>
+    <string name="title_activity_check_approval_detail">NOVAPPRO > 学生端 > 查看我的申请</string>
     <string name="title_activity_system_user_management">SystemUserManagementActivity</string>
     <string name="title_activity_course_management">CourseManagementActivity</string>
     <string name="title_activity_user_management">UserManagementActivity</string>

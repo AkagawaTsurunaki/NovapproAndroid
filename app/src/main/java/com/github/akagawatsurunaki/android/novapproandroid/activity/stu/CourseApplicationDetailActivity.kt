@@ -2,21 +2,25 @@ package com.github.akagawatsurunaki.android.novapproandroid.activity.stu
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.CourseApplicationDetailLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApprovalFlowDetailLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.model.ApprovalFlowDetail
 import com.github.akagawatsurunaki.android.novapproandroid.model.Level
 import com.github.akagawatsurunaki.android.novapproandroid.service.appro.ApprovalService
 import com.github.akagawatsurunaki.android.novapproandroid.service.stu.CourseApplicationDetailService
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 import com.github.akagawatsurunaki.android.novapproandroid.util.ServiceResultUtil
 
-class CourseApplicationDetailActivity : ComponentActivity() {
+class CourseApplicationDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: CourseApplicationDetailLayoutBinding
 
@@ -49,7 +53,15 @@ class CourseApplicationDetailActivity : ComponentActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.navigation_menu, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        MenuHandler.check(this, item)
+        return super.onOptionsItemSelected(item)
+    }
     private fun initApprovalFlowDetails(flowNo: String) {
         // 检查服务响应
         val getApprovalFlowDetailsServiceMessage = ApprovalService.getApprovalFlowDetails(flowNo)

@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.StudentLayoutBinding
-import com.github.akagawatsurunaki.android.novapproandroid.util.MenuUtil
+import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 
 class StudentActivity : AppCompatActivity() {
 
@@ -41,14 +41,12 @@ class StudentActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // TODO(检查这里是否会有bug，尤其是super)
         menuInflater.inflate(R.menu.navigation_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // TODO(检查这里是否会有bug，尤其是super)
-        MenuUtil.check(this, item)
+        MenuHandler.check(this, item)
         return super.onOptionsItemSelected(item)
     }
 
