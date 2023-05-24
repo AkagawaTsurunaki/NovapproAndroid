@@ -8,12 +8,13 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
+import com.github.akagawatsurunaki.android.novapproandroid.activity.base.SearchActivity
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.StudentLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.util.MenuHandler
 
 class StudentActivity : AppCompatActivity() {
 
-    private val functionalityList = listOf("我要申请课程", "查看我的申请")
+    private val functionalityList = listOf("我要申请课程", "查看我的申请", "高级搜索功能")
 
     private lateinit var binding: StudentLayoutBinding
 
@@ -31,6 +32,7 @@ class StudentActivity : AppCompatActivity() {
             when (functionalityList[position]) {
                 "我要申请课程" -> toApplyCourseActivity()
                 "查看我的申请" -> toCheckCourseApplicationActivity()
+                "高级搜索功能" -> toSearchActivity()
                 else -> Log.e(
                     StudentActivity::class.java.name,
                     "onCreate: 这是一个不可能被点击到的位置",
@@ -58,5 +60,12 @@ class StudentActivity : AppCompatActivity() {
     private fun toCheckCourseApplicationActivity() {
         val intent = Intent(this, CheckCourseApplicationsActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun toSearchActivity() {
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivity(intent.apply {
+            putExtra("actionCode", "STUDENT")
+        })
     }
 }

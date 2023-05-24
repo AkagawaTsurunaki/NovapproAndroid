@@ -38,8 +38,8 @@ class LoginActivity : AppCompatActivity() {
 
         // 为按钮绑定事件
         binding.loginLayoutButtonLogin.setOnClickListener {
-//             login()
-            testLogin()
+             login()
+//            testLogin()
         }
 
     }

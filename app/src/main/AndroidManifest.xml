@@ -24,6 +24,9 @@
         android:theme="@style/Theme.NovapproAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activity.base.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.base.MyActivity"
             android:exported="false"
             android:label="@string/title_activity_my"
@@ -93,9 +96,7 @@
             android:name=".activity.stu.ApplyCourseActivity"
             android:exported="false"
             android:label="@string/title_activity_apply_course"
-            android:theme="@style/Theme.NovapproAndroid">
-
-        </activity>
+            android:theme="@style/Theme.NovapproAndroid"></activity>
         <activity
             android:name=".activity.teacher.TeacherActivity"
             android:exported="false"
