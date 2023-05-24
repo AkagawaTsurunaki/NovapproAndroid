@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import com.github.akagawatsurunaki.android.novapproandroid.R
+import com.github.akagawatsurunaki.android.novapproandroid.activity.base.SearchActivity
 import com.github.akagawatsurunaki.android.novapproandroid.constant.Constant
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.ModelApplicationItemLayoutBinding
 import com.github.akagawatsurunaki.android.novapproandroid.databinding.TeacherLayoutBinding
@@ -38,6 +39,12 @@ class TeacherActivity : AppCompatActivity() {
         loginUserId = intent.getIntExtra("loginUserId", 0)
 
         initApplicationItemView(loginUserId)
+
+        binding.buttonSearch.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java).apply {
+                putExtra("actionCode", "TEACHER")
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
