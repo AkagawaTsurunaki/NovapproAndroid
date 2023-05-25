@@ -15,7 +15,7 @@ import java.io.IOException
 
 object ConnUtil {
 
-    val client = OkHttpClient()
+    private val client = OkHttpClient()
     var session = ""
 
     /**
